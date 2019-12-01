@@ -11,7 +11,12 @@ namespace Day_01_2019_Code
 
             answer = (int)(weight / 3 - 2);
 
-            return answer;
+            if (answer > 0)
+            {
+                return answer + RequiredFuel(answer);
+            }
+
+            return 0;
         }
 
     }
