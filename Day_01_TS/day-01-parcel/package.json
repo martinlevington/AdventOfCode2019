@@ -1,0 +1,16 @@
+{
+  "name": "day-01-parcel",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest",
+    "dev": "parcel index.html",
+    "build": "parcel build  index.html"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0",
+    "parcel-bundler": "^1.12.4",
+    "typescript": "^3.7.2"
+  }
+}

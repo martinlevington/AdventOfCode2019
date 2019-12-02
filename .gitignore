@@ -328,3 +328,5 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+Day_01_TS/day-01-parcel/.cache
+Day_01_TS/day-01-parcel/dist
