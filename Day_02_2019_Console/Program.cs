@@ -18,6 +18,36 @@ namespace Day_02_2019_Console
             Console.WriteLine("Result:");
             Console.WriteLine(intcodeApplication.Result());
 
+            // find part 2
+            const int outputToFind = 19690720;
+            var noun = 0;
+            var verb = 0;
+
+            for (var x = 0; x <= 99; x++)
+            {
+                for (var y = 0; y <= 99; y++)
+                {
+                    intcodeApplication = new Intcode(input);
+                    intcodeApplication.UpdateInput(1, x);
+                    intcodeApplication.UpdateInput(2, y);
+                    intcodeApplication.Process();
+
+                    if (intcodeApplication.Output() != outputToFind) continue;
+                    verb = y;
+                    break;
+                }
+
+                if (intcodeApplication.Output() != outputToFind) continue;
+                noun = x;
+                break;
+            }
+
+            Console.WriteLine("Debug Results:");
+            Console.WriteLine("Noun: " + noun);
+            Console.WriteLine("Verb: " + verb);
+
+            Console.WriteLine("Part2 Answer:");
+            Console.WriteLine(100 * noun + verb);
         }
     }
 }

@@ -6,55 +6,77 @@ namespace Day_02_2019_Code
 {
     public class Intcode
     {
-        private  int[] _input;
+        private readonly int[] _address;
+        private int _instructionPointer;
 
         public Intcode(string input)
         {
-            string[] separator = { ", ", "," };
-            _input = input.Split(separator,StringSplitOptions.RemoveEmptyEntries).Select(x => Convert.ToInt32(x)).ToArray();
-
+            string[] separator = {", ", ","};
+            _address = input.Split(separator, StringSplitOptions.RemoveEmptyEntries).Select(x => Convert.ToInt32(x))
+                .ToArray();
         }
 
         public void Process()
         {
-            var current = 0;
-            while (_input[current] != 99)
+            while (_address[_instructionPointer] != 99)
             {
-                switch (_input[current])
-                {
-                    case 1:
-                        AddValues(current);
-                        current = current + 4;
-                        break;
-                    case 2:
-                        MultiplyValues(current);
-                        current = current + 4;
-                        break;
-                    default:
-                        throw new Exception("Unknown instruction");
-                }
+                var s = StorageAddress();
+                _address[StorageAddress()] = CalculateValues(Noun(), Verb(), Opcode());
+                IncrementInstructionPointer(Opcode());
             }
         }
 
         public void UpdateInput(int position, int value)
         {
-            _input[position] = value;
+            _address[position] = value;
         }
 
         public string Result()
         {
-            return Strings.ConvertStringArrayToString(_input);
+            return Strings.ConvertStringArrayToString(_address);
         }
 
-        private void AddValues(int current)
+        public int Output()
         {
-            _input[_input[current + 3]] = _input[_input[current + 1]] + _input[_input[current + 2]];
-
+            return _address[0];
         }
 
-        private void MultiplyValues(int current)
+        public void IncrementInstructionPointer(int opcode)
         {
-            _input[_input[current + 3]] = _input[_input[current + 1]] * _input[_input[current + 2]];
+            _instructionPointer += 4;
+        }
+
+        public int StorageAddress()
+        {
+            return _address[_instructionPointer + 3];
+        }
+
+        private int Opcode()
+        {
+            return _address[_instructionPointer];
+        }
+
+        private int Noun()
+        {
+            return _address[_instructionPointer + 1];
+        }
+
+        private int Verb()
+        {
+            return _address[_instructionPointer + 2];
+        }
+
+        private int CalculateValues(int noun, int verb, int opcode)
+        {
+            switch (opcode)
+            {
+                case 1:
+                    return _address[noun] + _address[verb];
+                case 2:
+                    return _address[noun] * _address[verb];
+                default:
+                    throw new Exception("Unknown opcode");
+            }
         }
     }
 }
