@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
@@ -19,10 +18,19 @@ namespace Day_03_2019_Code
 
         public IEnumerable<(int, int)> FindIntersections()
         {
-            return (from point in _pathGridA.GetAllPoints() where _pathGridB.PointExists(point.Key) select point.Key).ToList();
+            var results = new List<(int, int)>();
+
+            foreach (var point in _pathGridA.GetAllPoints())
+            {
+                if (_pathGridB.PointExists(point.Key))
+                {
+                    results.Add(point.Key);
+                }
+            }
+
+
+            return results;
         }
-
-
 
     }
 }

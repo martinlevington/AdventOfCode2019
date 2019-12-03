@@ -25,6 +25,24 @@ namespace Day_03_2019_Tests
             Assert.Equal(2, results.Count());
 
         }
+        
+
+        [Fact]
+        public void TraceStepsToPoint()
+        {
+            // Arrange
+            var grid1 = new PathGrid("R8,U5,L5,D3");
+            var grid2 = new PathGrid("U7,R6,D4,L4");
+            grid1.ProcessInstructions();
+            grid2.ProcessInstructions();
+
+            //Act
+            var steps = grid1.TraceStepsToPoint((3, 3));
+
+            //Assert
+            Assert.Equal(20, steps);
+
+        }
 
         [Fact]
         public void HasIntersection()
@@ -43,5 +61,7 @@ namespace Day_03_2019_Tests
             Assert.NotEmpty(results);
 
         }
+
+
     }
 }
