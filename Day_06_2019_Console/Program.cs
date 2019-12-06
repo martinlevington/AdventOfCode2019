@@ -18,6 +18,10 @@ namespace Day_06_2019_Console
             Console.WriteLine("The Root Node Is:" + tree.GetRootNode().val);
 
             Console.WriteLine("Part One Result:" + result);
+
+            var hops = tree.HopsToSanta();
+            Console.WriteLine("Part Two Hops:" + hops);
+
             Console.ReadLine();
         }
     }

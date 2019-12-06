@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Day_06_2019_Code
 {
@@ -18,16 +17,14 @@ namespace Day_06_2019_Code
             _nodes.Add(_rootNode);
         }
 
-  
 
         public Tree(string[] orbits)
         {
-            this.Init(orbits);
+            Init(orbits);
         }
 
-            public void Init(string[] orbits)
+        public void Init(string[] orbits)
         {
-
             if (orbits.Length == 0) return;
 
             _rootNode = new TreeNode("");
@@ -61,9 +58,7 @@ namespace Day_06_2019_Code
                 child.parent = parent;
             }
 
-
             _rootNode = FindRootNode(_nodes[0]);
-
         }
 
 
@@ -72,15 +67,11 @@ namespace Day_06_2019_Code
         {
             while (node.parent != null)
             {
-              
                 node = node.parent;
             }
 
-
             return node;
         }
-
-
 
         public bool NodeExists(string nodeId)
         {
@@ -102,17 +93,8 @@ namespace Day_06_2019_Code
             var parent = orbit.Split(new[] { orbitSeparator }, StringSplitOptions.RemoveEmptyEntries).First();
             var child = orbit.Split(new[] { orbitSeparator }, StringSplitOptions.RemoveEmptyEntries).Last();
 
-           return new Orbit(parent, child);
-
+            return new Orbit(parent, child);
         }
-
-        private void AddOrbit(TreeNode parent, TreeNode child)
-        {
-          
-            AddNode(parent, child);
-
-        }
-
 
         private void AddOrbit(string orbit)
         {
@@ -120,7 +102,6 @@ namespace Day_06_2019_Code
             var child = orbit.Split(new[] { orbitSeparator }, StringSplitOptions.RemoveEmptyEntries).Last();
 
             AddNode(parent, child);
-
         }
 
         public TreeNode FindNode(TreeNode root, string nodeId)
@@ -141,12 +122,10 @@ namespace Day_06_2019_Code
                 if (found != null) break;
             }
 
-
             return found;
-
         }
 
-    
+
         public bool NodeExists(TreeNode root, string nodeId)
         {
             if (root == null)
@@ -165,9 +144,7 @@ namespace Day_06_2019_Code
                 if (found) break;
             }
 
-
             return found;
-
         }
 
         public void AddNode(string parentId, string childId)
@@ -189,7 +166,7 @@ namespace Day_06_2019_Code
 
         public int CountAllPaths()
         {
-            return CountAllPaths(_rootNode );
+            return CountAllPaths(_rootNode);
 
         }
 
@@ -201,7 +178,7 @@ namespace Day_06_2019_Code
             {
                 return 0;
             }
-            else if (root.children.Count() == 0 )
+            else if (root.children.Count() == 0)
             {
                 return DistanceToRoot(root);
             }
@@ -209,16 +186,40 @@ namespace Day_06_2019_Code
             count += DistanceToRoot(root);
             foreach (var c in root.children)
             {
-                count += CountAllPaths(c);             
+                count += CountAllPaths(c);
             }
 
             return count;
         }
 
-        public int DistanceToRoot(TreeNode node)
+        // you path to root
+        // san path too root
+        // find intersection
+        // path intersection + path from san to intersection
+        public int HopsToSanta()
+        {
+            var myPathTooRoot = NodesToRoot(FindNode(_rootNode, "YOU"));
+            var intersection = FindIntersection(myPathTooRoot, FindNode(_rootNode, "SAN"));
+            var YOUhops = HopsToNode(intersection, FindNode(_rootNode, "YOU"));
+            var SANHops = HopsToNode(intersection, FindNode(_rootNode, "SAN"));
+
+            return YOUhops + SANHops - 2;
+        }
+
+        public TreeNode FindIntersection(List<TreeNode> nodes, TreeNode node)
+        {
+            while (node.parent != null && !nodes.Where(x => x.val == node.val).Any())
+            {
+                node = node.parent;
+            }
+
+            return nodes.Where(x => x.val == node.val).Any() ? node : null;
+        }
+
+        public int HopsToNode(TreeNode root, TreeNode node)
         {
             var count = 0;
-            while (node.parent != null)
+            while (node.val != root.val && node.parent != null)
             {
                 count++;
                 node = node.parent;
@@ -227,6 +228,22 @@ namespace Day_06_2019_Code
             return count;
         }
 
+        public int DistanceToRoot(TreeNode node)
+        {
+            return HopsToNode(_rootNode, node);
+        }
+
+        public List<TreeNode> NodesToRoot(TreeNode node)
+        {
+            var nodes = new List<TreeNode>();
+            while (node.parent != null)
+            {
+                nodes.Add(node);
+                node = node.parent;
+            }
+
+            return nodes;
+        }
 
 
     }
