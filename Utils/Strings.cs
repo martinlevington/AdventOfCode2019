@@ -39,5 +39,9 @@ namespace Utils
             return input.Split(separator, StringSplitOptions.RemoveEmptyEntries).Select(Convert.ToString);
         }
 
+        public static string ConvertStringArrayToString(long[] array)
+        {
+            return string.Join(",", array.Select(p => p.ToString()).ToArray());
+        }
     }
 }

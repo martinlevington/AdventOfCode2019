@@ -16,9 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Day_06_2019_Code\Day_06_2019_Code.csproj" />
     <ProjectReference Include="..\SharedCode\SharedCode.csproj" />
-    <ProjectReference Include="..\Utils\Utils.csproj" />
   </ItemGroup>
 
 </Project>
