@@ -17,8 +17,7 @@ namespace Day_09_2019_Console
             inputBuffer.Add(1);
             var memory = new VirtualMemory(state.First());
             var computer = new Intcode(memory, writer, inputBuffer);
-            computer.EnableDebug();
-         
+
 
             computer.Process();
             var output = writer.ToString();

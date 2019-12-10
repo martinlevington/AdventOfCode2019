@@ -43,11 +43,32 @@ namespace Day_09_2019_Tests
             var output = writer.ToString();
 
             //Assert
+            Assert.Equal(expectedResult, output); 
+        }
+
+        [Theory]
+        [InlineData("109,9,21107,666,555,0,204,0,99,-1", 7, "0")]
+        [InlineData("109,9,21107,555,666,0,204,0,99,-1", 7, "1")]
+        public void TestInitialCodes_Day09_21107(string input, int inputValue, string expectedResult)
+        {
+            // Arrange
+            var writer = new OutputWriterQueue();
+            var inputBuffer = new InputBuffer();
+            inputBuffer.Add(inputValue);
+            var memory = new VirtualMemory(input);
+            var sut = new Intcode(memory, writer, inputBuffer);
+
+            // Act
+
+            sut.Process();
+            var output = writer.ToString();
+
+            //Assert
             Assert.Equal(expectedResult, output);
         }
-        
 
-        
+
+
         [Theory]
         [InlineData("1102,34915192,34915192,7,4,7,99,0", 16)]
         public void TestInitialCodes_Day09_CheckOutLength(string input, int expectedResult)
