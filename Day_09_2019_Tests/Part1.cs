@@ -13,7 +13,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes(string input, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
             var memory = new VirtualMemory(input);
             var sut = new Intcode(memory, writer, inputBuffer);
@@ -31,7 +31,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes_Day09(string input, int inputValue, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
             inputBuffer.Add(inputValue);
             var memory = new VirtualMemory(input);
@@ -52,7 +52,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes_Day09_21107(string input, int inputValue, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
             inputBuffer.Add(inputValue);
             var memory = new VirtualMemory(input);
@@ -74,7 +74,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes_Day09_CheckOutLength(string input, int expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
   
             var memory = new VirtualMemory(input);
@@ -94,7 +94,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes_Day09_CheckOut_WithNoInput(string input, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
 
             var memory = new VirtualMemory(input);

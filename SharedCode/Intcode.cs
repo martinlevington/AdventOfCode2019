@@ -3,21 +3,21 @@ using Utils;
 
 namespace SharedCode
 {
-    public class Intcode
+    public class Intcode : IIntcode
     {
         private readonly IInputBuffer _inputBuffer;
         private readonly IMemory _memory;
-        private readonly IOutputWriter _outputWriter;
+        private readonly IOutputBuffer _outputBuffer;
         private bool _finished;
         private long _instructionPointer;
         private long _relativeBase;
         private bool _sleep;
 
 
-        public Intcode(IMemory memory, IOutputWriter outputWriter, IInputBuffer inputBuffer)
+        public Intcode(IMemory memory, IOutputBuffer outputBuffer, IInputBuffer inputBuffer)
         {
             _memory = memory;
-            _outputWriter = outputWriter;
+            _outputBuffer = outputBuffer;
             _inputBuffer = inputBuffer;
         }
 
@@ -90,7 +90,7 @@ namespace SharedCode
                     case 4: // write output
 
                         var value = GetValue(_instructionPointer + 1, instruction.Parameter1Mode());
-                        _outputWriter.WriteOutput(value);
+                        _outputBuffer.WriteOutput(value);
 
                         break;
                     case 5: // jump if true (if 1st param != 0 instruct pointer = 2nd param) other wise do nothing

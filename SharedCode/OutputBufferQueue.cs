@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SharedCode
 {
-    public class OutputWriterQueue : IOutputWriter
+    public class OutputBufferQueue : IOutputBuffer
     {
         private Queue<long> _buffer= new Queue<long>();
 

@@ -20,7 +20,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes_State(string input, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
             var memory = new VirtualMemory(input);
             var sut = new Intcode(memory, writer, inputBuffer);
@@ -39,7 +39,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes(string input, int inputValue, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
             inputBuffer.Add(inputValue);
             var memory = new VirtualMemory(input);
@@ -59,7 +59,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes_LongInstruction(string input, int inputValue, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
             inputBuffer.Add(inputValue);
             var memory = new VirtualMemory(input);
@@ -79,7 +79,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes_EqualToEight(string input, int inputValue, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
             inputBuffer.Add(inputValue);
             var memory = new VirtualMemory(input);
@@ -99,7 +99,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes_LessThanEight(string input, int inputValue, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
             inputBuffer.Add(inputValue);
             var memory = new VirtualMemory(input);
@@ -122,7 +122,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes_JumpTests(string input, int inputValue, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
             inputBuffer.Add(inputValue);
             var memory = new VirtualMemory(input);
@@ -142,7 +142,7 @@ namespace Day_09_2019_Tests
         public void TestInitialCodes_LargerExample(string input, int inputValue, string expectedResult)
         {
             // Arrange
-            var writer = new OutputWriterQueue();
+            var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
             inputBuffer.Add(inputValue);
             var memory = new VirtualMemory(input);

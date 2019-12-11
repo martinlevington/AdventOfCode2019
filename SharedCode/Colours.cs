@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SharedCode
 {
-    public interface IOutputWriter
+    public enum Colour
     {
-        void WriteOutput(long value);
-
+        Black = 0,
+        White = 1
     }
 }
