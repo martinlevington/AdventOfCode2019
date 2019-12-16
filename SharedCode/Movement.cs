@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SharedCode
+﻿namespace SharedCode
 {
     //  north (1), south (2), west (3), and east (4)
     public enum Movement

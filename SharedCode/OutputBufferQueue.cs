@@ -5,9 +5,7 @@ namespace SharedCode
 {
     public class OutputBufferQueue : IBuffer
     {
-        private Queue<long> _buffer= new Queue<long>();
-
-
+        private readonly Queue<long> _buffer = new Queue<long>();
         public int Count => _buffer.Count;
         public bool IsEmpty => !_buffer.Any();
 
@@ -18,12 +16,12 @@ namespace SharedCode
 
         public long GetValue()
         {
-           return  _buffer.Dequeue();
+            return _buffer.Dequeue();
         }
 
         public override string ToString()
         {
-            return string.Join(",",_buffer.ToArray());
+            return string.Join(",", _buffer.ToArray());
         }
     }
 }

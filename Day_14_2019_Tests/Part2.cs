@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Day_14_2019_Code;
 using Xunit;
 
@@ -9,10 +7,10 @@ namespace Day_14_2019_Tests
 {
     public class Part2
     {
-        string[] _separators = {  "\r\n" ,"\n"};
+        private readonly string[] _separators = {"\r\n", "\n"};
 
         [Fact]
-        public void Test_Fuel_From_1TrillionOre_Example1 ()
+        public void Test_Fuel_From_1TrillionOre_Example1()
         {
             //Arrange
             var input = @"157 ORE => 5 NZVS
@@ -36,8 +34,7 @@ namespace Day_14_2019_Tests
 
 
             //Assert
-            Assert.Equal(82892753 , result);
-
+            Assert.Equal(82892753, result);
         }
 
 
@@ -68,12 +65,11 @@ namespace Day_14_2019_Tests
             var solver = new EquationSolver(reader.Equations);
 
             //Act
-            //var result = solver.GetRequiredOre(reader.Equations["FUEL"], 1);
             // 1,000,000,000,000
             var result = solver.CalculateFuelFromOre(1000000000000);
 
             //Assert
-            Assert.Equal(460664  , result);
+            Assert.Equal(460664, result);
         }
     }
 }

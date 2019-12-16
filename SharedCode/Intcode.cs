@@ -13,8 +13,6 @@ namespace SharedCode
         private long _relativeBase;
         private bool _sleep;
 
-        public int Id { get; set; }
-
 
         public Intcode(IMemory memory, IBuffer outputBuffer, IBuffer inputBuffer)
         {
@@ -22,6 +20,8 @@ namespace SharedCode
             _outputBuffer = outputBuffer;
             _inputBuffer = inputBuffer;
         }
+
+        public int Id { get; set; }
 
         public bool IsRunning()
         {
@@ -50,7 +50,7 @@ namespace SharedCode
             while (!_finished && !_sleep)
             {
                 var instruction = new OpCodeInstruction(_memory.Get(_instructionPointer));
-                var opcode = instruction.GetOpCode();
+                instruction.GetOpCode();
                 long left;
                 long right;
                 long storageAddress;
@@ -104,7 +104,8 @@ namespace SharedCode
                         }
 
                         break;
-                    case 6: // jump-if-false ( if first param == 0 set instruction pointer = 2nd param) other wise do nothing
+                    case 6
+                        : // jump-if-false ( if first param == 0 set instruction pointer = 2nd param) other wise do nothing
 
                         if (GetValue(_instructionPointer + 1, instruction.Parameter1Mode()) == 0)
                         {
@@ -113,20 +114,23 @@ namespace SharedCode
                         }
 
                         break;
-                    case 7: 
+                    case 7:
                         // less-than  if 1st param < 2nd param - store 1 at 3rd param position otherwise store 0 at 3rd param position
 
                         param1 = GetValue(_instructionPointer + 1, instruction.Parameter1Mode());
                         param2 = GetValue(_instructionPointer + 2, instruction.Parameter2Mode());
 
                         storeValue = 0;
-                        if (param1 < param2) storeValue = 1;
+                        if (param1 < param2)
+                        {
+                            storeValue = 1;
+                        }
 
                         storageAddress = GetAddress(_instructionPointer + 3, instruction.Parameter3Mode());
                         _memory.Set(storageAddress, storeValue);
 
                         break;
-                    case 8: 
+                    case 8:
                         // equals - if 1st param == 2nd param store 1 at 3rd param position otherwise store 0 at 3rd param position
 
                         param1 = GetValue(_instructionPointer + 1, instruction.Parameter1Mode());
@@ -151,7 +155,10 @@ namespace SharedCode
                         throw new Exception("Unknown opcode: " + instruction.GetOpCode());
                 }
 
-                if (!_sleep) IncrementInstructionPointer(instruction.GetOpCode());
+                if (!_sleep)
+                {
+                    IncrementInstructionPointer(instruction.GetOpCode());
+                }
             }
         }
 

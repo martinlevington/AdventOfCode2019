@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace SharedCode
 {
@@ -15,21 +14,19 @@ namespace SharedCode
             {
                 return _area.Select(x => x.Key.Item1).Min();
             }
-            catch (System.InvalidOperationException e)
+            catch (InvalidOperationException e)
             {
                 return 0;
             }
-          
         }
 
         public int GetMaxX()
         {
-            
             try
             {
                 return _area.Select(x => x.Key.Item1).Max();
             }
-            catch (System.InvalidOperationException e)
+            catch (InvalidOperationException e)
             {
                 return 0;
             }
@@ -37,12 +34,11 @@ namespace SharedCode
 
         public int GetMaxY()
         {
-            
             try
             {
                 return _area.Select(x => x.Key.Item2).Max();
             }
-            catch (System.InvalidOperationException e)
+            catch (InvalidOperationException e)
             {
                 return 0;
             }
@@ -50,18 +46,17 @@ namespace SharedCode
 
         public int GetMinY()
         {
-          
             try
             {
                 return _area.Select(x => x.Key.Item2).Min();
             }
-            catch (System.InvalidOperationException e)
+            catch (InvalidOperationException e)
             {
                 return 0;
             }
         }
 
-        public void AddElement((int,int) position, char element)
+        public void AddElement((int, int) position, char element)
         {
             if (_area.ContainsKey(position))
             {
@@ -72,7 +67,7 @@ namespace SharedCode
             _area.Add(position, element);
         }
 
-        public bool  ElementExists((int, int) position)
+        public bool ElementExists((int, int) position)
         {
             return _area.ContainsKey(position);
         }
@@ -81,8 +76,5 @@ namespace SharedCode
         {
             return _area[position];
         }
-
-
-
     }
 }

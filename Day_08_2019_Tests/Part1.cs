@@ -12,7 +12,7 @@ namespace Day_08_2019_Tests
         {
             // Arrange
             var data = "123456789012";
-            var img = new SpaceImage(3,2,data.Select(x => Convert.ToInt32(x.ToString())).ToArray());
+            var img = new SpaceImage(3, 2, data.Select(x => Convert.ToInt32(x.ToString())).ToArray());
 
             //Act
             var result = img.GetLayerCount();
@@ -35,7 +35,7 @@ namespace Day_08_2019_Tests
 
 
             //Assert
-            Assert.Equal(1, num1S*num2S);
+            Assert.Equal(1, num1S * num2S);
         }
     }
 }

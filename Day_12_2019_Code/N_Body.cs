@@ -1,18 +1,14 @@
-﻿using SharedCode;
-using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
+using SharedCode;
 
 namespace Day_12_2019_Code
 {
     public class NBody
     {
+        private readonly List<Moon> _moons = new List<Moon>();
 
-        private int _timeSteps;
-        private List<Moon> _moons = new List<Moon>();
-
-        public NBody(List<Moon> moons)
+         public NBody(List<Moon> moons)
         {
             _moons = moons;
         }
@@ -21,7 +17,6 @@ namespace Day_12_2019_Code
         {
             ApplyGravity();
             ApplyVelocity();
-
         }
 
         public Moon GetMoon(int index)
@@ -51,7 +46,6 @@ namespace Day_12_2019_Code
         {
             var combinations = Enumerable.Range(0, _moons.Count()).Select(x => x).DifferentCombinations(2).ToArray();
 
-
             foreach (var combination in combinations)
             {
                 var el = combination.ToArray();
@@ -60,7 +54,7 @@ namespace Day_12_2019_Code
                     _moons[el[0]].VelocityX++;
                     _moons[el[1]].VelocityX--;
                 }
-                else  if (_moons[el[0]].X > _moons[el[1]].X)
+                else if (_moons[el[0]].X > _moons[el[1]].X)
                 {
                     _moons[el[0]].VelocityX--;
                     _moons[el[1]].VelocityX++;
@@ -75,7 +69,7 @@ namespace Day_12_2019_Code
                     _moons[el[0]].VelocityY++;
                     _moons[el[1]].VelocityY--;
                 }
-                else  if (_moons[el[0]].Y > _moons[el[1]].Y)
+                else if (_moons[el[0]].Y > _moons[el[1]].Y)
                 {
                     _moons[el[0]].VelocityY--;
                     _moons[el[1]].VelocityY++;
@@ -90,15 +84,13 @@ namespace Day_12_2019_Code
                     _moons[el[0]].VelocityZ++;
                     _moons[el[1]].VelocityZ--;
                 }
-                else   if (_moons[el[0]].Z > _moons[el[1]].Z)
+                else if (_moons[el[0]].Z > _moons[el[1]].Z)
                 {
                     _moons[el[0]].VelocityZ--;
                     _moons[el[1]].VelocityZ++;
                 }
             }
-
         }
-
         public int GetTotalEnergy()
         {
             return _moons.Sum(moon => moon.GetTotalEnergy());

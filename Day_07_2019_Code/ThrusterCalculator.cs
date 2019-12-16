@@ -28,7 +28,6 @@ namespace Day_07_2019_Code
                 _inputBuffers.Add(i, new InputBuffer());
                 _inputBuffers[i].Add(phase);
 
-                // var inputBuffer = InputBuffers.ContainsKey(phase - 1) ? InputBuffers[phase - 1] : InputBuffers[InputBuffers.Select(x => x.Key).Max()];
 
                 var memory = new VirtualMemory(State);
                 var amp = new Intcode(memory, outPutBuffer, _inputBuffers[i]) {Id = i};
@@ -38,11 +37,13 @@ namespace Day_07_2019_Code
 
             outPutBuffer.Add(0);
             foreach (var amp in amps)
+            {
                 while (amp.IsRunning())
                 {
                     _inputBuffers[amp.Id].Add(outPutBuffer.GetValue());
                     amp.Process();
                 }
+            }
 
             return outPutBuffer.GetValue();
         }
@@ -79,12 +80,19 @@ namespace Day_07_2019_Code
             {
                 foreach (var amp in amps)
                 {
-                    if (!amp.IsRunning()) continue;
+                    if (!amp.IsRunning())
+                    {
+                        continue;
+                    }
+
                     amp.Wake();
                     amp.Process();
                 }
 
-                if (!amps.Any(x => x.IsRunning())) break;
+                if (!amps.Any(x => x.IsRunning()))
+                {
+                    break;
+                }
             }
 
             return _inputBuffers[0].GetValue();

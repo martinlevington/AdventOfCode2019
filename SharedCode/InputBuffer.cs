@@ -4,7 +4,7 @@ namespace SharedCode
 {
     public class InputBuffer : IBuffer
     {
-        private Queue<long> _inputMemory = new Queue<long>();
+        private readonly Queue<long> _inputMemory = new Queue<long>();
 
         public void Add(long value)
         {
@@ -19,6 +19,5 @@ namespace SharedCode
         public int Count => _inputMemory.Count;
 
         public bool IsEmpty => _inputMemory.Count == 0;
-
     }
 }

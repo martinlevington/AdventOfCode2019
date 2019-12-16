@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Day_12_2019_Code;
 using Xunit;
@@ -7,30 +6,29 @@ namespace Day_12_2019_Tests
 {
     public class Part1
     {
-
-
         // example
         //<x=-1, y=0, z=2>
         //<x=2, y=-10, z=-7>
         //<x=4, y=-8, z=8>
         //<x=3, y=5, z=-1>
 
-        private List<Moon> _moons;
+        private readonly List<Moon> _moons;
 
         public Part1()
         {
             _moons = new List<Moon>
-            { 
+            {
                 new Moon(-1, 0, 2),
                 new Moon(2, -10, -7),
                 new Moon(4, -8, 8),
-                new Moon(3, 5, -1),
+                new Moon(3, 5, -1)
             };
         }
 
         [Theory]
         [InlineData(-1, 0, 2, 0, 0, 0)]
-        public void StepMoon_SetupCheck(int x, int y, int z, int expectedVelocityX, int expectedVelocityY, int expectedVelocityZ)
+        public void StepMoon_SetupCheck(int x, int y, int z, int expectedVelocityX, int expectedVelocityY,
+            int expectedVelocityZ)
         {
             // Arrange
 
@@ -44,14 +42,14 @@ namespace Day_12_2019_Tests
             Assert.Equal(expectedVelocityX, sut.GetMoon(0).VelocityX);
             Assert.Equal(expectedVelocityY, sut.GetMoon(0).VelocityY);
             Assert.Equal(expectedVelocityZ, sut.GetMoon(0).VelocityZ);
-
         }
 
         [Theory]
         [InlineData(1, 3, -1, -1)]
         [InlineData(2, 3, -2, -2)]
         [InlineData(3, 0, -3, 0)]
-        public void StepMoon_StepOneCheckVelocityMoon0(int numberOfSteps, int expectedVelocityX, int expectedVelocityY, int expectedVelocityZ)
+        public void StepMoon_StepOneCheckVelocityMoon0(int numberOfSteps, int expectedVelocityX, int expectedVelocityY,
+            int expectedVelocityZ)
         {
             // Arrange
             var moonIndex = 0;
@@ -68,7 +66,6 @@ namespace Day_12_2019_Tests
             Assert.Equal(expectedVelocityX, sut.GetMoon(moonIndex).VelocityX);
             Assert.Equal(expectedVelocityY, sut.GetMoon(moonIndex).VelocityY);
             Assert.Equal(expectedVelocityZ, sut.GetMoon(moonIndex).VelocityZ);
-
         }
 
         [Theory]
@@ -99,12 +96,10 @@ namespace Day_12_2019_Tests
             Assert.Equal(expectedX, sut.GetMoon(moonIndex).X);
             Assert.Equal(expectedY, sut.GetMoon(moonIndex).Y);
             Assert.Equal(expectedZ, sut.GetMoon(moonIndex).Z);
-
         }
 
         [Theory]
         [InlineData(10, 179)]
-
         public void StepMoon_TotalEnergyAfter10Steps(int numberOfSteps, int expectedTotal)
         {
             // Arrange
@@ -119,8 +114,6 @@ namespace Day_12_2019_Tests
 
             //Assert
             Assert.Equal(expectedTotal, sut.GetTotalEnergy());
-
-
         }
 
 
@@ -130,8 +123,7 @@ namespace Day_12_2019_Tests
         //<x=4, y=-8, z=8>
         //<x=3, y=5, z=-1>
         [Theory]
-        [InlineData (866910349, -1, 0)]
-
+        [InlineData(866910349, -1, 0)]
         public void StepMoon_RepeatTest(int numberOfSteps, int expectedX, int expectedY)
         {
             // Arrange
@@ -148,9 +140,6 @@ namespace Day_12_2019_Tests
             //Assert
             Assert.Equal(expectedX, sut.GetMoon(0).X);
             Assert.Equal(expectedY, sut.GetMoon(0).Y);
-
         }
-
-
     }
 }

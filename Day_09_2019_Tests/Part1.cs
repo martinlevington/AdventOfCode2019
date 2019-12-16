@@ -1,15 +1,13 @@
 using SharedCode;
 using Xunit;
-using InputBuffer = SharedCode.InputBuffer;
 
 namespace Day_09_2019_Tests
 {
     public class Part1
     {
-
         [Theory]
-        [InlineData("109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99", "109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99")]
-
+        [InlineData("109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99",
+            "109,1,204,-1,1001,100,1,100,1008,100,16,101,1006,101,0,99")]
         public void TestInitialCodes(string input, string expectedResult)
         {
             // Arrange
@@ -38,12 +36,11 @@ namespace Day_09_2019_Tests
             var sut = new Intcode(memory, writer, inputBuffer);
 
             // Act
-
             sut.Process();
             var output = writer.ToString();
 
             //Assert
-            Assert.Equal(expectedResult, output); 
+            Assert.Equal(expectedResult, output);
         }
 
         [Theory]
@@ -59,14 +56,12 @@ namespace Day_09_2019_Tests
             var sut = new Intcode(memory, writer, inputBuffer);
 
             // Act
-
             sut.Process();
             var output = writer.ToString();
 
             //Assert
             Assert.Equal(expectedResult, output);
         }
-
 
 
         [Theory]
@@ -76,12 +71,11 @@ namespace Day_09_2019_Tests
             // Arrange
             var writer = new OutputBufferQueue();
             var inputBuffer = new InputBuffer();
-  
+
             var memory = new VirtualMemory(input);
             var sut = new Intcode(memory, writer, inputBuffer);
 
             // Act
-
             sut.Process();
             var output = writer.ToString();
 
@@ -101,13 +95,11 @@ namespace Day_09_2019_Tests
             var sut = new Intcode(memory, writer, inputBuffer);
 
             // Act
-
             sut.Process();
             var output = writer.ToString();
 
             //Assert
             Assert.Equal(expectedResult, output);
         }
-
     }
 }

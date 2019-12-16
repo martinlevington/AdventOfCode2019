@@ -36,6 +36,7 @@ namespace Day_10_2019_Code
 
                 _visibleAsteroids.Add((asteroid.Key.Item1, asteroid.Key.Item2), found);
             }
+
             return _visibleAsteroids.Max(x => x.Value);
         }
 
@@ -51,7 +52,10 @@ namespace Day_10_2019_Code
 
         public void VaporiseAllVisibleAsteroids((int, int) point, int logIndex)
         {
-            while (CanShoot()) VaporiseVisibleAsteroids(point, logIndex);
+            while (CanShoot())
+            {
+                VaporiseVisibleAsteroids(point, logIndex);
+            }
         }
 
         public void VaporiseVisibleAsteroids((int, int) point, int logIndex)
@@ -67,6 +71,7 @@ namespace Day_10_2019_Code
             // get a list of angles and the asteroids on that angle
             var basesAtAngle = new Dictionary<double, List<(int, int)>>();
             foreach (var kvp in _baseAsteroidsAngles)
+            {
                 if (!basesAtAngle.ContainsKey(kvp.Value))
                 {
                     var listOfBases = new List<(int, int)> {kvp.Key};
@@ -76,6 +81,7 @@ namespace Day_10_2019_Code
                 {
                     basesAtAngle[kvp.Value].Add(kvp.Key);
                 }
+            }
 
             var visibleAsteroids =
                 basesAtAngle.ToDictionary(kvp => kvp.Key,
@@ -87,7 +93,11 @@ namespace Day_10_2019_Code
             for (var i = 0; i < orderedVisibleAsteroids.Count(); i++)
             {
                 _vaporisedAsteroids.Add(orderedVisibleAsteroids[i].Value, i);
-                if (_vaporisedAsteroids.Count == logIndex) LoggedAsteroid = orderedVisibleAsteroids[i].Value;
+                if (_vaporisedAsteroids.Count == logIndex)
+                {
+                    LoggedAsteroid = orderedVisibleAsteroids[i].Value;
+                }
+
                 _map.Remove(orderedVisibleAsteroids[i].Value);
             }
         }
@@ -95,18 +105,29 @@ namespace Day_10_2019_Code
         private void CalculateAnglesToAsteroidsForStation((int, int) point)
         {
             _baseAsteroidsAngles = new Dictionary<(int, int), double>();
-            if (_map[point] != "#") return;
+            if (_map[point] != "#")
+            {
+                return;
+            }
+
             foreach (var testAsteroid in _map.Where(testAsteroid => testAsteroid.Value == "#"))
+            {
                 _baseAsteroidsAngles[testAsteroid.Key] = GetAngle(point, testAsteroid.Key);
+            }
         }
 
         private void CalculateDistancesToAsteroidsForStation((int, int) point)
         {
             _baseAsteroidsDistances = new Dictionary<(int, int), double>();
-            if (_map[point] != "#") return;
+            if (_map[point] != "#")
+            {
+                return;
+            }
 
             foreach (var testAsteroid in _map.Where(testAsteroid => testAsteroid.Value == "#"))
+            {
                 _baseAsteroidsDistances[testAsteroid.Key] = GetDistance(point, testAsteroid.Key);
+            }
         }
 
         private double GetDistance((int, int) pointA, (int, int) pointB)
@@ -121,8 +142,15 @@ namespace Day_10_2019_Code
 
             var angle = Math.Atan2(yDiff, xDiff) * 180.0 / Math.PI;
             angle += 90;
-            if (angle < 0) angle += 360;
-            if (angle >= 360) angle -= 360;
+            if (angle < 0)
+            {
+                angle += 360;
+            }
+
+            if (angle >= 360)
+            {
+                angle -= 360;
+            }
 
             return angle;
         }

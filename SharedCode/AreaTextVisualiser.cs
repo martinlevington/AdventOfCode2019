@@ -1,19 +1,15 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Text;
 
 namespace SharedCode
 {
     public class AreaTextVisualiser
     {
         private readonly IAreaSize _area;
-        private string _lineEnd = "|";
+        private readonly string _lineEnd = "|";
 
         public AreaTextVisualiser(IAreaSize area)
         {
             _area = area;
-          
-            
         }
 
         public string Draw()
@@ -30,7 +26,7 @@ namespace SharedCode
                 {
                     if (_area.ElementExists((x, y)))
                     {
-                        displayImage.Append(_area.GetElement((x,y)));
+                        displayImage.Append(_area.GetElement((x, y)));
                     }
                     else
                     {
@@ -39,21 +35,17 @@ namespace SharedCode
 
                     //if (x == maxX ) displayImage.Append(x);
                 }
-                 displayImage.Append(y);
+
+                displayImage.Append(y);
                 displayImage.Append(_lineEnd);
             }
 
             return displayImage.ToString();
-
         }
 
         public string GetLineEnd()
         {
             return _lineEnd;
         }
-
-      
-
-
     }
 }

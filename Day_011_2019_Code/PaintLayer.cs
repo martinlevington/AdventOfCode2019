@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using SharedCode;
 
 namespace Day_11_2019_Code
 {
-    public  class PaintLayer
+    public class PaintLayer
     {
-        private List<PaintColour> _layers = new List<PaintColour>();
+        private readonly List<PaintColour> _layers = new List<PaintColour>();
 
         public void AddLayer(PaintColour layer)
         {
@@ -21,8 +19,7 @@ namespace Day_11_2019_Code
 
         public PaintColour GetColour()
         {
-            return _layers[_layers.Count-1];
+            return _layers[_layers.Count - 1];
         }
-
     }
 }

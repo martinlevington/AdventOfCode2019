@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SharedCode;
 
@@ -8,29 +9,27 @@ namespace Day_11_2019_Code
     {
         private readonly Dictionary<(int, int), PaintLayer> _hull = new Dictionary<(int, int), PaintLayer>();
 
-        public void PaintSquare((int , int) cordinates, PaintColour colour)
+        public void PaintSquare((int, int) coordinates, PaintColour colour)
         {
-            if (!_hull.ContainsKey((cordinates.Item1,cordinates.Item2))) _hull.Add((cordinates.Item1,cordinates.Item2), new PaintLayer());
+            if (!_hull.ContainsKey((coordinates.Item1, coordinates.Item2)))
+            {
+                _hull.Add((coordinates.Item1, coordinates.Item2), new PaintLayer());
+            }
 
-            _hull[(cordinates.Item1, cordinates.Item2)].AddLayer(colour);
+            _hull[(coordinates.Item1, coordinates.Item2)].AddLayer(colour);
         }
 
-        public bool IsPainted((int,int) position)
+        public bool IsPainted((int, int) position)
         {
             return _hull.ContainsKey((position.Item1, position.Item2));
         }
 
-        public PaintColour GetPaintedSquareColour((int,int) position)
+        public PaintColour GetPaintedSquareColour((int, int) position)
         {
-            if (IsPainted(position))
-            {
-                return _hull[(position.Item1, position.Item2)].GetColour();
-            }
-
-            return PaintColour.Black;
+            return IsPainted(position) ? _hull[(position.Item1, position.Item2)].GetColour() : PaintColour.Black;
         }
 
-        public int  GetNumberOfPaintedPanels()
+        public int GetNumberOfPaintedPanels()
         {
             return _hull.Count;
         }
@@ -57,17 +56,17 @@ namespace Day_11_2019_Code
 
         public void AddElement((int, int) position, char element)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public bool ElementExists((int, int) position)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public char GetElement((int, int) position)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

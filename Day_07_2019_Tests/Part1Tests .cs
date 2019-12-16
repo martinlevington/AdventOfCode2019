@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using Day_07_2019_Code;
 using Utils;
@@ -14,7 +13,7 @@ namespace Day_07_2019_Tests
         {
             // Arrange
             var sut = new ThrusterCalculator(input);
-            List<int> inputPhases = Strings.StringToEnumerableInt(phases).ToList();
+            var inputPhases = Strings.StringToEnumerableInt(phases).ToList();
 
             // Act
             var result = sut.ThrustPower(inputPhases);
@@ -29,7 +28,7 @@ namespace Day_07_2019_Tests
         {
             // Arrange
             var sut = new ThrusterCalculator(input);
-            List<int> inputPhases = Strings.StringToEnumerableInt(phases).ToList();
+            var inputPhases = Strings.StringToEnumerableInt(phases).ToList();
 
             // Act
             var result = sut.ThrustPowerWithFeedBack(inputPhases);

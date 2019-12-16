@@ -5,26 +5,34 @@ namespace SharedCode
 {
     public class OpCodeInstruction
     {
-        private long _opcode;
-        private long _parameterModeA;
-        private long _parameterModeB;
-        private long _parameterModeC;
+        private readonly long _opcode;
+        private readonly long _parameterModeA;
+        private readonly long _parameterModeB;
+        private readonly long _parameterModeC;
 
 
         public OpCodeInstruction(long instruction)
         {
-
             var parts = instruction.ToString().Select(x => Convert.ToInt64(x.ToString()))
                 .Reverse().ToArray();
-            _opcode = parts.Length >= 2 ? Convert.ToInt64(parts[1].ToString() + parts[0].ToString()) : Convert.ToInt64(parts[0].ToString());
+            _opcode = parts.Length >= 2
+                ? Convert.ToInt64(parts[1] + parts[0].ToString())
+                : Convert.ToInt64(parts[0].ToString());
 
-            if (parts.Length >= 3) _parameterModeC = parts[2];
-            if (parts.Length >= 4) _parameterModeB = parts[3];
-            if (parts.Length >= 5) _parameterModeA = parts[4];
+            if (parts.Length >= 3)
+            {
+                _parameterModeC = parts[2];
+            }
 
+            if (parts.Length >= 4)
+            {
+                _parameterModeB = parts[3];
+            }
 
-
-
+            if (parts.Length >= 5)
+            {
+                _parameterModeA = parts[4];
+            }
         }
 
         public long GetOpCode()
@@ -33,35 +41,49 @@ namespace SharedCode
         }
 
 
-
         public ReadMode Parameter1Mode()
         {
-            if (_parameterModeC == 0) return ReadMode.Position;
-            if (_parameterModeC == 1) return ReadMode.Immediate;
-            if (_parameterModeC == 2) return ReadMode.Offset;
-
-            throw new Exception("Error: Unknown Mode fpr Paremeter 1");
-
+            switch (_parameterModeC)
+            {
+                case 0:
+                    return ReadMode.Position;
+                case 1:
+                    return ReadMode.Immediate;
+                case 2:
+                    return ReadMode.Offset;
+                default:
+                    throw new Exception("Error: Unknown Mode fpr Paremeter 1");
+            }
         }
 
         public ReadMode Parameter2Mode()
         {
-            if (_parameterModeB == 0) return ReadMode.Position;
-            if (_parameterModeB == 1) return ReadMode.Immediate;
-            if (_parameterModeB == 2) return ReadMode.Offset;
-
-            throw new Exception("Error: Unknown Mode fpr Paremeter 2");
-
+            switch (_parameterModeB)
+            {
+                case 0:
+                    return ReadMode.Position;
+                case 1:
+                    return ReadMode.Immediate;
+                case 2:
+                    return ReadMode.Offset;
+                default:
+                    throw new Exception("Error: Unknown Mode fpr Paremeter 2");
+            }
         }
 
         public ReadMode Parameter3Mode()
         {
-            if (_parameterModeA == 0) return ReadMode.Position;
-            if (_parameterModeA == 1) return ReadMode.Immediate;
-            if (_parameterModeA == 2) return ReadMode.Offset;
-
-            throw new Exception("Error: Unknown Mode fpr Paremeter 3");
-
+            switch (_parameterModeA)
+            {
+                case 0:
+                    return ReadMode.Position;
+                case 1:
+                    return ReadMode.Immediate;
+                case 2:
+                    return ReadMode.Offset;
+                default:
+                    throw new Exception("Error: Unknown Mode fpr Paremeter 3");
+            }
         }
 
         public bool IsPositionMode(char position)
@@ -77,9 +99,6 @@ namespace SharedCode
                 default:
                     throw new Exception("Error Unknown Mode");
             }
-
-
         }
-
     }
 }

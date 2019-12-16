@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SharedCode
+﻿namespace SharedCode
 {
     public interface IArea : IAreaPainted, IAreaSize
     {
-      
     }
 }

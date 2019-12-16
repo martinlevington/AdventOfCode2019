@@ -1,23 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Day_07_2019_Code;
 
 namespace Day_07_2019_Console
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Starting Up!");
 
-            string[] state = System.IO.File.ReadAllLines(@"input.txt");
+            var state = File.ReadAllLines(@"input.txt");
 
-
-
-            var combinations = GetPermutations(new[] { 0, 1, 2, 3, 4 }, 5).ToList();
-
-    
+            var combinations = GetPermutations(new[] {0, 1, 2, 3, 4}, 5).ToList();
 
             long maxOutput = 0;
             foreach (var combination in combinations)
@@ -33,8 +30,8 @@ namespace Day_07_2019_Console
             Console.WriteLine("Part One Result:" + maxOutput);
 
 
-            var combinationsPhase2 = GetPermutations(new[] { 5, 6, 7, 8, 9 }, 5).ToList();
-           
+            var combinationsPhase2 = GetPermutations(new[] {5, 6, 7, 8, 9}, 5).ToList();
+
 
             long maxOutputPhase2 = 0;
             foreach (var combination in combinationsPhase2)
@@ -54,18 +51,17 @@ namespace Day_07_2019_Console
         }
 
 
-        static IEnumerable<IEnumerable<T>>
-    GetPermutations<T>(IEnumerable<T> list, int length)
+        private static IEnumerable<IEnumerable<T>>
+            GetPermutations<T>(IEnumerable<T> list, int length)
         {
-            if (length == 1) return list.Select(t => new T[] { t });
+            if (length == 1)
+            {
+                return list.Select(t => new[] {t});
+            }
+
             return GetPermutations(list, length - 1)
                 .SelectMany(t => list.Where(o => !t.Contains(o)),
-                    (t1, t2) => t1.Concat(new T[] { t2 }));
+                    (t1, t2) => t1.Concat(new[] {t2}));
         }
-
     }
-
-
-
-
 }

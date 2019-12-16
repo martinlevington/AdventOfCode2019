@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SharedCode
+﻿namespace SharedCode
 {
     public interface IAreaPainted
     {
-        void PaintSquare((int , int) cordinates, PaintColour colour);
-        bool IsPainted((int,int) position);
-        PaintColour GetPaintedSquareColour((int,int) position);
-        int  GetNumberOfPaintedPanels();
+        void PaintSquare((int, int) coordinates, PaintColour colour);
+        bool IsPainted((int, int) position);
+        PaintColour GetPaintedSquareColour((int, int) position);
+        int GetNumberOfPaintedPanels();
     }
 }

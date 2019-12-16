@@ -1,8 +1,7 @@
 ﻿namespace SharedCode
 {
-    public interface IOutputBuffer 
+    public interface IOutputBuffer
     {
         long GetValue();
-
     }
 }

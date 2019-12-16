@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using SharedCode;
 
 namespace Day_11_2019_Code
@@ -12,8 +10,6 @@ namespace Day_11_2019_Code
         public SpaceShipVisualiser(IArea spaceShip)
         {
             _spaceShip = spaceShip;
-          
-            
         }
 
         public string Draw()
@@ -38,22 +34,17 @@ namespace Day_11_2019_Code
                         {
                             displayImage.Append("#");
                         }
-
                     }
                     else
                     {
                         displayImage.Append(".");
                     }
                 }
+
                 displayImage.Append("E");
             }
 
             return displayImage.ToString();
-
-
-
-
         }
-
     }
 }

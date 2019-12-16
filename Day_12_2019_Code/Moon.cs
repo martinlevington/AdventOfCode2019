@@ -1,18 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Day_12_2019_Code
 {
     public class Moon
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Z { get; set; }
-        public int VelocityX { get; set; }
-        public int VelocityY { get; set; }
-        public int VelocityZ { get; set; }
-
         private int _gravity;
 
         public Moon(int x, int y, int z)
@@ -33,6 +24,13 @@ namespace Day_12_2019_Code
             VelocityZ = velocityZ;
         }
 
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Z { get; set; }
+        public int VelocityX { get; set; }
+        public int VelocityY { get; set; }
+        public int VelocityZ { get; set; }
+
         public int GetPotentialEnergy()
         {
             return Math.Abs(X) + Math.Abs(Y) + Math.Abs(Z);
@@ -47,7 +45,5 @@ namespace Day_12_2019_Code
         {
             return GetKineticEnergy() * GetPotentialEnergy();
         }
-
-
     }
 }

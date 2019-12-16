@@ -19,6 +19,7 @@ namespace Day_10_2019_Code
                     _map.Add((x, y), chr.ToString());
                     x++;
                 }
+
                 y++;
             }
         }

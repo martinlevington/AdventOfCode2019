@@ -16,15 +16,7 @@ namespace Day_08_2019_Tests
             var expectedResult = @"01E10E";
 
             //Act
-            var result = img.GetLayerCount();
             var decodeImg = img.DecodeLayers();
-            //var decodeImgLines = decodeImg.Split('\n');
-
-
-            //foreach (var line in decodeImgLines)
-            //{
-            //    Console.WriteLine(line);
-            //}
 
 
             //Assert

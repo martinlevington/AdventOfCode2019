@@ -4,15 +4,14 @@ namespace SharedCode.Robots
 {
     public class Robot
     {
-
         private readonly IIntcode _computer;
-        private readonly IBuffer _outputBuffer;
         private readonly IBuffer _inputBuffer;
+        private readonly IBuffer _outputBuffer;
+        private int _currentX;
+        private int _currentY;
         private Direction _direction = Direction.Up;
-        private int _currentX = 0;
-        private int _currentY = 0;
 
-        public Robot(IIntcode computer,  IBuffer outputBuffer, IBuffer inputBuffer)
+        public Robot(IIntcode computer, IBuffer outputBuffer, IBuffer inputBuffer)
         {
             _computer = computer;
             _outputBuffer = outputBuffer;
@@ -24,7 +23,9 @@ namespace SharedCode.Robots
             _computer.Wake();
             _computer.Process();
 
-            return _outputBuffer.Count >=2 ? new RobotInstruction(_outputBuffer.GetValue(), _outputBuffer.GetValue()) : new RobotInstruction(_outputBuffer.GetValue());
+            return _outputBuffer.Count >= 2
+                ? new RobotInstruction(_outputBuffer.GetValue(), _outputBuffer.GetValue())
+                : new RobotInstruction(_outputBuffer.GetValue());
         }
 
         public bool IsFinished()
@@ -37,7 +38,7 @@ namespace SharedCode.Robots
             _inputBuffer.Add(value);
         }
 
-        public (int,int) GetPosition()
+        public (int, int) GetPosition()
         {
             return (_currentX, _currentY);
         }
@@ -57,8 +58,6 @@ namespace SharedCode.Robots
                     break;
                 case Direction.Right:
                     _currentX += distance;
-                    break;
-                default:
                     break;
             }
         }
@@ -120,8 +119,6 @@ namespace SharedCode.Robots
                     break;
                 case Direction.Left:
                     _direction = Direction.Up;
-                    break;
-                default:
                     break;
             }
         }

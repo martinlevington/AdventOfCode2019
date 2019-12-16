@@ -141,7 +141,7 @@ namespace Day_14_2019_Code
 
         public long CalculateFuelFromOre(long targetOre)
         {
-            long startFuel = targetOre / 2;
+            var startFuel = targetOre / 2;
             long ore = 0;
             long fuel = startFuel, increment = startFuel;
 
@@ -181,8 +181,5 @@ namespace Day_14_2019_Code
 
             return fuel;
         }
-
-       
-        
     }
 }

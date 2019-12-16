@@ -6,7 +6,6 @@ namespace SharedCode
 {
     public class VirtualMemory : IMemory
     {
-
         private Dictionary<long, long> _memory = new Dictionary<long, long>();
 
 
@@ -16,7 +15,7 @@ namespace SharedCode
 
         public VirtualMemory(string states)
         {
-            string[] separator = { ", ", "," };
+            string[] separator = {", ", ","};
             var initStates = states.Split(separator, StringSplitOptions.RemoveEmptyEntries)
                 .Select(x => Convert.ToInt64(x))
                 .ToArray();
@@ -36,7 +35,10 @@ namespace SharedCode
 
         public long Get(long index)
         {
-            if (_memory.ContainsKey(index)) return _memory[index];
+            if (_memory.ContainsKey(index))
+            {
+                return _memory[index];
+            }
 
             _memory.Add(index, 0); // initialise the memory location
             return 0;
@@ -50,16 +52,17 @@ namespace SharedCode
                 return;
             }
 
-            if (index < 0) throw new Exception("Error: Invalid Memory location"); 
-            
+            if (index < 0)
+            {
+                throw new Exception("Error: Invalid Memory location");
+            }
+
             _memory.Add(index, value);
         }
 
         public long[] ToArray()
         {
-            return _memory.Select( x => x.Value).ToArray();
+            return _memory.Select(x => x.Value).ToArray();
         }
     }
-
-
 }
