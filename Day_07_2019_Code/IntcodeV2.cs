@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading;
 using Utils;
 
-namespace Day_05_2019_Code
+namespace Day_07_2019_Code
 {
 
-    public class Intcode
+    public class IntcodeV2
     {
         private  int[] _address;
         private  int[] _initalState;
@@ -19,7 +19,7 @@ namespace Day_05_2019_Code
         public bool IsRunning = true;
 
 
-        public Intcode(string input, Queue<int> inputMemory)
+        public IntcodeV2(string input, Queue<int> inputMemory)
         {
             string[] separator = { ", ", "," };
             _address = input.Split(separator, StringSplitOptions.RemoveEmptyEntries).Select(x => Convert.ToInt32(x))

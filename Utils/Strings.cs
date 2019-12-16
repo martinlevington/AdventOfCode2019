@@ -22,20 +22,20 @@ namespace Utils
         public static string ConvertStringArrayToString(int[] array)
         {
             // Concatenate all the elements into a StringBuilder.
-           return  string.Join(",", array.Select(p => p.ToString()).ToArray());
+            return string.Join(",", array.Select(p => p.ToString()).ToArray());
         }
 
         public static IEnumerable<int> StringToEnumerableInt(string input)
         {
 
-            string[] separator = { ", ", "," };
+            string[] separator = { "\n", "\r\n", ", ", "," };
             return input.Split(separator, StringSplitOptions.RemoveEmptyEntries).Select(x => Convert.ToInt32(x));
         }
 
         public static IEnumerable<string> StringToEnumerableString(string input)
         {
 
-            string[] separator = { ", ", "," };
+            string[] separator = { "\n", "\r\n", ", ", "," };
             return input.Split(separator, StringSplitOptions.RemoveEmptyEntries).Select(Convert.ToString);
         }
 
