@@ -17,7 +17,9 @@ namespace Day_04_2019_Code
                     && passwordToCheck.Select(c => c).GroupBy(x => x).Count(y => y.Count() == 2) >= 1
                     && IsAscending(passwordToCheck)
                 )
+                {
                     result++;
+                }
             }
 
 
@@ -26,7 +28,10 @@ namespace Day_04_2019_Code
 
         private static bool IsAscending(string x)
         {
-            if (x.Length == 1) return true;
+            if (x.Length == 1)
+            {
+                return true;
+            }
 
             var last = Convert.ToInt32(x.Last().ToString());
             var prev = Convert.ToInt32(x[x.Length - 2].ToString());

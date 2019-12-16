@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Day_01_2019_Code
 {
-
-   
-
     public class Rocket
     {
-        private List<IRocketModule> _rocketModules;
-        private IFuelCalculator _fuelCalculator;
+        private readonly IFuelCalculator _fuelCalculator;
+        private readonly List<IRocketModule> _rocketModules;
 
         public Rocket(IFuelCalculator fuelCalculator)
         {
@@ -21,18 +17,11 @@ namespace Day_01_2019_Code
         public void AddModule(IRocketModule module)
         {
             _rocketModules.Add(module);
-
         }
 
         public int CalculateRequiredFuel()
         {
-            int totalRequiredFuel = 0;
-            foreach(var module in _rocketModules)
-            {
-                totalRequiredFuel += _fuelCalculator.RequiredFuel(module.Weight);
-            }
-
-            return totalRequiredFuel;
+            return _rocketModules.Sum(module => _fuelCalculator.RequiredFuel(module.Weight));
         }
     }
 }

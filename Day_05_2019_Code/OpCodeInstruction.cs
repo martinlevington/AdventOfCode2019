@@ -1,32 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Day_05_2019_Code
 {
     public class OpCodeInstruction
     {
-        private int _opcode;
-        private int _parameterModeA;
-        private int _parameterModeB;
-        private int _parameterModeC;
-        
+        private readonly int _opcode;
+        private readonly int _parameterModeA;
+        private readonly int _parameterModeB;
+        private readonly int _parameterModeC;
 
-        public  OpCodeInstruction(int instruction)
+
+        public OpCodeInstruction(int instruction)
         {
-      
             var parts = instruction.ToString().Select(x => Convert.ToInt32(x.ToString()))
                 .Reverse().ToArray();
-            _opcode = parts.Length >= 2 ? Convert.ToInt32(parts[1].ToString() + parts[0].ToString()) : Convert.ToInt32(parts[0].ToString());
+            _opcode = parts.Length >= 2
+                ? Convert.ToInt32(parts[1] + parts[0].ToString())
+                : Convert.ToInt32(parts[0].ToString());
 
-            if (parts.Length >= 3) _parameterModeC = parts[2];
-            if (parts.Length >= 4) _parameterModeB = parts[3];
-            if (parts.Length >= 5) _parameterModeA = parts[4];
+            if (parts.Length >= 3)
+            {
+                _parameterModeC = parts[2];
+            }
 
+            if (parts.Length >= 4)
+            {
+                _parameterModeB = parts[3];
+            }
 
-
-
+            if (parts.Length >= 5)
+            {
+                _parameterModeA = parts[4];
+            }
         }
 
         public int GetOpCode()
@@ -47,9 +53,6 @@ namespace Day_05_2019_Code
                 default:
                     throw new Exception("Error Unknown Mode");
             }
-
-            
         }
-
     }
 }

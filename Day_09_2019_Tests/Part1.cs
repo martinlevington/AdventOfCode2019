@@ -1,6 +1,6 @@
 using SharedCode;
-using System;
 using Xunit;
+using InputBuffer = SharedCode.InputBuffer;
 
 namespace Day_09_2019_Tests
 {

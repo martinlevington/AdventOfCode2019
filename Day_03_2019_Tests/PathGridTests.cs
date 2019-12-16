@@ -1,43 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Day_03_2019_Code;
 using Xunit;
 
-namespace Day_03_2019_Code
+namespace Day_03_2019_Tests
 {
     public class PathGridTests
     {
-
-        [Fact]
-        public void StepsToPoint_ShouldBe610()
-        {
-            // Arrange
-            var grid1 = new PathGrid("R75,D30,R83,U83,L12,D49,R71,U7,L72");
-            var grid2 = new PathGrid("U62,R66,U55,R34,D71,R55,D58,R83");
-            grid1.ProcessInstructions();
-            grid2.ProcessInstructions();
-
-            var intersectionDetection = new IntersectionDetection(grid1, grid2);
-            var interSections = intersectionDetection.FindIntersections();
-
-            //Act
-            var leastSteps = int.MaxValue;
-            foreach (var interSection in interSections)
-            {
-                var stepToIntersection = grid1.TraceStepsToPoint((interSection.Item1, interSection.Item2)) +
-                            grid2.TraceStepsToPoint((interSection.Item1, interSection.Item2));
-
-                if (leastSteps > stepToIntersection)
-                {
-                    leastSteps = stepToIntersection;
-                }
-            }
-
-            //Assert
-            Assert.Equal(610, leastSteps);
-
-        }
-
         [Fact]
         public void StepsToPoint_Should410()
         {
@@ -65,7 +32,35 @@ namespace Day_03_2019_Code
 
             //Assert
             Assert.Equal(410, leastSteps);
+        }
 
+        [Fact]
+        public void StepsToPoint_ShouldBe610()
+        {
+            // Arrange
+            var grid1 = new PathGrid("R75,D30,R83,U83,L12,D49,R71,U7,L72");
+            var grid2 = new PathGrid("U62,R66,U55,R34,D71,R55,D58,R83");
+            grid1.ProcessInstructions();
+            grid2.ProcessInstructions();
+
+            var intersectionDetection = new IntersectionDetection(grid1, grid2);
+            var interSections = intersectionDetection.FindIntersections();
+
+            //Act
+            var leastSteps = int.MaxValue;
+            foreach (var interSection in interSections)
+            {
+                var stepToIntersection = grid1.TraceStepsToPoint((interSection.Item1, interSection.Item2)) +
+                                         grid2.TraceStepsToPoint((interSection.Item1, interSection.Item2));
+
+                if (leastSteps > stepToIntersection)
+                {
+                    leastSteps = stepToIntersection;
+                }
+            }
+
+            //Assert
+            Assert.Equal(610, leastSteps);
         }
     }
 }

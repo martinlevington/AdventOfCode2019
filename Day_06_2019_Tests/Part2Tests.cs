@@ -1,33 +1,13 @@
-﻿using Day_06_2019_Code;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
+using Day_06_2019_Code;
 using Xunit;
 
 namespace Day_06_2019_Tests
 {
     public class Part2Tests
     {
-
-        [Fact]
-        public void A()
-        {
-            string[] separator = { "\n", "\r\n", ", ", "," };
-            var orbits = example.Split(separator, StringSplitOptions.RemoveEmptyEntries).Select(x => x).ToArray();
-            var sut = new Tree(orbits);
-
-            // Act
-            var result = sut.HopsToSanta();
-
-            // Assert
-            Assert.IsType<int>(result);
-            Assert.Equal(4, result);
-
-        }
-
-
-        string example = @"COM)B
+        private readonly string _example = @"COM)B
 B)C
 C)D
 D)E
@@ -40,5 +20,20 @@ J)K
 K)L
 K)YOU
 I)SAN";
+
+        [Fact]
+        public void A()
+        {
+            string[] separator = {"\n", "\r\n", ", ", ","};
+            var orbits = _example.Split(separator, StringSplitOptions.RemoveEmptyEntries).Select(x => x).ToArray();
+            var sut = new Tree(orbits);
+
+            // Act
+            var result = sut.HopsToSanta();
+
+            // Assert
+            Assert.IsType<int>(result);
+            Assert.Equal(4, result);
+        }
     }
 }

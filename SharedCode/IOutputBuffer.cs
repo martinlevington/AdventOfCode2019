@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SharedCode
+﻿namespace SharedCode
 {
-    public interface IOutputBuffer
+    public interface IOutputBuffer 
     {
-        void WriteOutput(long value);
+        long GetValue();
 
     }
 }

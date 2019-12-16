@@ -18,9 +18,9 @@ namespace Day_08_2019_Console
 
             //Act
             var layer = img.GetImageLayerWithFewest(0);
-            var num1s = layer.GetNumberOfDigits(1);
-            var num2s = layer.GetNumberOfDigits(2);
-            var answer = num1s * num2s;
+            var num1S = layer.GetNumberOfDigits(1);
+            var num2S = layer.GetNumberOfDigits(2);
+            var answer = num1S * num2S;
 
             Console.WriteLine("Part One Answer:" +answer );
 

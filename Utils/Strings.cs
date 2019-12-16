@@ -25,6 +25,12 @@ namespace Utils
             return string.Join(",", array.Select(p => p.ToString()).ToArray());
         }
 
+        public static string ArrayToString(this int[] array)
+        {
+            // Concatenate all the elements into a StringBuilder.
+            return string.Join(",", array.Select(p => p.ToString()).ToArray());
+        }
+
         public static IEnumerable<int> StringToEnumerableInt(string input)
         {
 
@@ -39,9 +45,23 @@ namespace Utils
             return input.Split(separator, StringSplitOptions.RemoveEmptyEntries).Select(Convert.ToString);
         }
 
+        public static IEnumerable<string> ToEnumerableString(this string input)
+        {
+
+            string[] separator = {  "\r\n", ", ", "," ,"\n"};
+            return input.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+        }
+
         public static string ConvertStringArrayToString(long[] array)
         {
             return string.Join(",", array.Select(p => p.ToString()).ToArray());
+        }
+
+        public static Dictionary<T1, T2> ToDictionary<T1, T2>(this KeyValuePair<T1, T2> kvp)
+        {
+            var dict = new Dictionary<T1, T2>();
+            dict.Add(kvp.Key, kvp.Value);
+            return dict;
         }
     }
 }

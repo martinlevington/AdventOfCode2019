@@ -1,5 +1,5 @@
-using Day_05_2019_Code;
 using System.Collections.Generic;
+using Day_05_2019_Code;
 using Xunit;
 
 namespace Day_05_2019_Tests
@@ -33,7 +33,6 @@ namespace Day_05_2019_Tests
             Assert.Equal(expectedResult, result);
         }
 
-
         [Theory]
         [InlineData("3,0,4,0,99", 12, 12)]
         public void TestInitialCodes_Day05(string inputState, int inputValue, int expectedResult)
@@ -41,7 +40,7 @@ namespace Day_05_2019_Tests
             // Arrange
             var input = new Queue<int>();
             input.Enqueue(inputValue);
-            var sut = new Intcode(inputState,input);
+            var sut = new Intcode(inputState, input);
 
             // Act
             sut.Process();
@@ -104,7 +103,6 @@ namespace Day_05_2019_Tests
             Assert.Equal(expectedResult, output);
         }
 
-
         [Theory]
         [InlineData("3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9", 0, 0)]
         [InlineData("3,12,6,12,15,1,13,14,13,4,13,99,-1,0,1,9", 3, 1)]
@@ -125,11 +123,16 @@ namespace Day_05_2019_Tests
             Assert.Equal(expectedResult, output);
         }
 
-
         [Theory]
-        [InlineData("3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99", 0, 999)]
-        [InlineData("3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99", 8, 1000)]
-        [InlineData("3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99", 10, 1001)]
+        [InlineData(
+            "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99",
+            0, 999)]
+        [InlineData(
+            "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99",
+            8, 1000)]
+        [InlineData(
+            "3,21,1008,21,8,20,1005,20,22,107,8,21,20,1006,20,31,1106,0,36,98,0,0,1002,21,125,20,4,20,1105,1,46,104,999,1105,1,46,1101,1000,1,20,4,20,1105,1,46,98,99",
+            10, 1001)]
         public void TestInitialCodes_Day05_LargerExample(string inputState, int inputValue, int expectedResult)
         {
             // Arrange
@@ -144,7 +147,5 @@ namespace Day_05_2019_Tests
             //Assert
             Assert.Equal(expectedResult, output);
         }
-
-
     }
 }

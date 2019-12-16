@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Day_03_2019_Code
 {
     public class IntersectionDetection
     {
-        private PathGrid _pathGridA;
-        private PathGrid _pathGridB;
+        private readonly PathGrid _pathGridA;
+        private readonly PathGrid _pathGridB;
 
         public IntersectionDetection(PathGrid pathgridA, PathGrid pathgridB)
         {
@@ -28,9 +25,7 @@ namespace Day_03_2019_Code
                 }
             }
 
-
             return results;
         }
-
     }
 }

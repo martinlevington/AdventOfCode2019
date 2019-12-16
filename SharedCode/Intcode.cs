@@ -5,16 +5,18 @@ namespace SharedCode
 {
     public class Intcode : IIntcode
     {
-        private readonly IInputBuffer _inputBuffer;
+        private readonly IBuffer _inputBuffer;
         private readonly IMemory _memory;
-        private readonly IOutputBuffer _outputBuffer;
+        private readonly IBuffer _outputBuffer;
         private bool _finished;
         private long _instructionPointer;
         private long _relativeBase;
         private bool _sleep;
 
+        public int Id { get; set; }
 
-        public Intcode(IMemory memory, IOutputBuffer outputBuffer, IInputBuffer inputBuffer)
+
+        public Intcode(IMemory memory, IBuffer outputBuffer, IBuffer inputBuffer)
         {
             _memory = memory;
             _outputBuffer = outputBuffer;
@@ -23,7 +25,7 @@ namespace SharedCode
 
         public bool IsRunning()
         {
-            return !_sleep;
+            return !_finished;
         }
 
         public bool IsPaused()
@@ -35,7 +37,6 @@ namespace SharedCode
         public void Wake()
         {
             _sleep = false;
-            ;
         }
 
         public bool Stopped()
@@ -49,6 +50,7 @@ namespace SharedCode
             while (!_finished && !_sleep)
             {
                 var instruction = new OpCodeInstruction(_memory.Get(_instructionPointer));
+                var opcode = instruction.GetOpCode();
                 long left;
                 long right;
                 long storageAddress;
@@ -90,7 +92,7 @@ namespace SharedCode
                     case 4: // write output
 
                         var value = GetValue(_instructionPointer + 1, instruction.Parameter1Mode());
-                        _outputBuffer.WriteOutput(value);
+                        _outputBuffer.Add(value);
 
                         break;
                     case 5: // jump if true (if 1st param != 0 instruct pointer = 2nd param) other wise do nothing

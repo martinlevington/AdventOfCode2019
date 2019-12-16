@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SharedCode;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,7 +8,7 @@ namespace Day_08_2019_Code
 
     public class SpaceImage
     {
-        public int[] dataRows { get; set; }
+        public int[] DataRows { get; set; }
         private List<ImageLayer> _layers;
         public int SizeX { get; set; }
         public int SizeY { get; set; }
@@ -19,12 +20,12 @@ namespace Day_08_2019_Code
             SizeY = sizeY;
             _layers = new List<ImageLayer>();
 
-            dataRows = inputData;
-            makeLayers(inputData);
+            DataRows = inputData;
+            MakeLayers(inputData);
         }
 
 
-        private void makeLayers(int[] inputData)
+        private void MakeLayers(int[] inputData)
         {
             for (int i = 0; i <= inputData.Length - 1; i += SizeY*SizeX)
             {

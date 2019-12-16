@@ -3,23 +3,22 @@ using Day_01_2019_Code;
 
 namespace Day_01_2019_Console
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
             var myRocket = new Rocket(new FuelCalculator());
 
-            addModules(myRocket);
+            AddModules(myRocket);
 
             var requiredFuel = myRocket.CalculateRequiredFuel();
 
             Console.WriteLine("Required fuel: " + requiredFuel);
-
         }
 
-        private static void addModules(Rocket rocket)
+        private static void AddModules(Rocket rocket)
         {
             var moduleWeights = GetData().GetLines();
             foreach (var moduleWeight in moduleWeights)
@@ -139,9 +138,7 @@ namespace Day_01_2019_Console
 135624";
 
 
-
             return data;
-
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using Day_02_2019_Code;
 using Xunit;
 
@@ -22,17 +21,13 @@ namespace Day_02_2019_Tests
         {
             // Arrange
             var sut = new Intcode(input);
-            
+
             // Act
             sut.Process();
             var result = sut.Result();
 
             //Assert
             Assert.Equal(expectedResult, result);
-
         }
-
-  
-
     }
 }

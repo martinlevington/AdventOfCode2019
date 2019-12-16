@@ -30,12 +30,12 @@ namespace Day_08_2019_Tests
 
             //Act
             var layer = img.GetImageLayerWithFewest(1);
-            var num1s = layer.GetNumberOfDigits(1);
-            var num2s = layer.GetNumberOfDigits(2);
+            var num1S = layer.GetNumberOfDigits(1);
+            var num2S = layer.GetNumberOfDigits(2);
 
 
             //Assert
-            Assert.Equal(1, num1s*num2s);
+            Assert.Equal(1, num1S*num2S);
         }
     }
 }

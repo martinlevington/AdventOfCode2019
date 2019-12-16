@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Day_07_2019_Code;
@@ -11,7 +10,7 @@ namespace Day_07_2019_Tests
     {
         [Theory]
         [InlineData("3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0", "4,3,2,1,0", 43210)]
-        public void TestInitialCodes_Day05(string input, string phases, int expectedResult)
+        public void TestInitialCodes_Day07(string input, string phases, int expectedResult)
         {
             // Arrange
             var sut = new ThrusterCalculator(input);
@@ -26,7 +25,7 @@ namespace Day_07_2019_Tests
 
         [Theory]
         [InlineData("3,15,3,16,1002,16,10,16,1,16,15,15,4,15,99,0,0", "4,3,2,1,0", 43210)]
-        public void TestInitialCodes_Day05_B(string input, string phases, int expectedResult)
+        public void TestInitialCodes_Day07_B(string input, string phases, int expectedResult)
         {
             // Arrange
             var sut = new ThrusterCalculator(input);

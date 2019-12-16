@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace Day_11_2019_Tests

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Day_07_2019_Code;
-using Utils;
 
 namespace Day_07_2019_Console
 {
@@ -14,15 +13,16 @@ namespace Day_07_2019_Console
 
             string[] state = System.IO.File.ReadAllLines(@"input.txt");
 
-            var thrustCalc = new ThrusterCalculator(state[0]);
 
 
             var combinations = GetPermutations(new[] { 0, 1, 2, 3, 4 }, 5).ToList();
 
+    
 
-            var maxOutput = 0;
+            long maxOutput = 0;
             foreach (var combination in combinations)
             {
+                var thrustCalc = new ThrusterCalculator(state[0]);
                 var output = thrustCalc.ThrustPower(combination.ToList());
                 if (output > maxOutput)
                 {
@@ -36,7 +36,7 @@ namespace Day_07_2019_Console
             var combinationsPhase2 = GetPermutations(new[] { 5, 6, 7, 8, 9 }, 5).ToList();
            
 
-            var maxOutputPhase2 = 0;
+            long maxOutputPhase2 = 0;
             foreach (var combination in combinationsPhase2)
             {
                 var thrustCalcPhase2 = new ThrusterCalculator(state[0]);
@@ -49,7 +49,7 @@ namespace Day_07_2019_Console
 
             Console.WriteLine("Part Two Result:" + maxOutputPhase2);
 
-
+            Console.WriteLine("Press Enter to Continue!");
             Console.ReadLine();
         }
 

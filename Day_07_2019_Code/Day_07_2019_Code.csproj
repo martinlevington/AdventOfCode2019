@@ -5,6 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Day_05_2019_Code\Day_05_2019_Code.csproj" />
+    <ProjectReference Include="..\SharedCode\SharedCode.csproj" />
   </ItemGroup>
 </Project>

@@ -2,12 +2,12 @@
 using System.Linq;
 using System.Text;
 
-namespace Day_08_2019_Code
+namespace SharedCode
 {
     public class ImageLayer
     {
-        public int ID { get; set; }
-        public int[] dataRows { get; set; }
+        public int Id { get; set; }
+        public int[] DataRows { get; set; }
         public int SizeX { get; set; }
         public int SizeY { get; set; }
 
@@ -16,7 +16,7 @@ namespace Day_08_2019_Code
             SizeX = sizeX;
             SizeY = sizeY;
 
-            dataRows = inputData;
+            DataRows = inputData;
         }
 
      
@@ -27,9 +27,9 @@ namespace Day_08_2019_Code
             var output = new StringBuilder();
 
             // ... Loop over bounds.
-            for (int i = 0; i <= dataRows.Length-1; i+=SizeX)
+            for (int i = 0; i <= DataRows.Length-1; i+=SizeX)
             {
-                var row = dataRows[i];
+                var row = DataRows[i];
                 for (int x = 0; x < SizeX; x++)
                 {
                     output.Append(x);
@@ -42,12 +42,12 @@ namespace Day_08_2019_Code
 
         public int GetNumberOfDigits(int d)
         {
-            return dataRows.Count(x => x == d);
+            return DataRows.Count(x => x == d);
         }
 
         public int GetPixel(int x, int y)
         {
-            return dataRows[(y*SizeX) + x];
+            return DataRows[(y*SizeX) + x];
         }
 
     }

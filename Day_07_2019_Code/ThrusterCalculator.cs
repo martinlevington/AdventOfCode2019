@@ -1,107 +1,93 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Day_05_2019_Code;
+using SharedCode;
 
 namespace Day_07_2019_Code
 {
     public class ThrusterCalculator
     {
+        private Dictionary<int, IBuffer> _inputBuffers;
 
-      
-        public static Dictionary<int, Queue<int>> SharedMemory;
-
-    
         public ThrusterCalculator(string input)
         {
-            _state = input;
-            SharedMemory = new Dictionary<int, Queue<int>>();
+            State = input;
+            _inputBuffers = new Dictionary<int, IBuffer>();
         }
 
-        private string _state { get; }
+        private string State { get; }
 
-        public int ThrustPower(List<int> phases)
+        public long ThrustPower(IEnumerable<int> phases)
         {
-           
             var amps = new List<Intcode>();
-            var sharedMemory = new Queue<int>();
-
-            foreach (var phase in phases)
-            {
-                var instructions = new Queue<int>();
-                instructions.Enqueue(phase);
-          
-                var amp = new Intcode(_state, instructions);
-                amp.SetOutputMemory(sharedMemory);
-                amps.Add(amp);
-              
-            }
-
-            sharedMemory.Enqueue(0);
-            foreach (var amp in amps)
-            {
-                amp.AddInstruction(sharedMemory.Dequeue());
-                amp.Process();
-            }
-
-            return sharedMemory.Dequeue();
-        }
-
-        
-
-        public int ThrustPowerWithFeedBack(List<int> phases)
-        {
-           
-            var input = 0;
-            var amps = new List<Intcode>();
+            _inputBuffers = new Dictionary<int, IBuffer>();
+            var outPutBuffer = new SharedBuffer();
 
             var i = 0;
             foreach (var phase in phases)
             {
-                SharedMemory.Add(i, new Queue<int>());
-                SharedMemory[i].Enqueue(phase);
+                _inputBuffers.Add(i, new InputBuffer());
+                _inputBuffers[i].Add(phase);
 
-                var amp = new Intcode(_state, SharedMemory[i]);
-                amp.ID = i;
+                // var inputBuffer = InputBuffers.ContainsKey(phase - 1) ? InputBuffers[phase - 1] : InputBuffers[InputBuffers.Select(x => x.Key).Max()];
 
+                var memory = new VirtualMemory(State);
+                var amp = new Intcode(memory, outPutBuffer, _inputBuffers[i]) {Id = i};
                 amps.Add(amp);
                 i++;
             }
 
-            // config amps
-            amps[0].SetOutputMemory(SharedMemory[1]);
-            amps[1].SetOutputMemory(SharedMemory[2]);
-            amps[2].SetOutputMemory(SharedMemory[3]);
-            amps[3].SetOutputMemory(SharedMemory[4]);
-            amps[4].SetOutputMemory(SharedMemory[0]);
+            outPutBuffer.Add(0);
+            foreach (var amp in amps)
+                while (amp.IsRunning())
+                {
+                    _inputBuffers[amp.Id].Add(outPutBuffer.GetValue());
+                    amp.Process();
+                }
 
-    
+            return outPutBuffer.GetValue();
+        }
 
-            // default input 0
-            SharedMemory[0].Enqueue(input);
-            while (true)
+
+        public long ThrustPowerWithFeedBack(List<int> phases)
+        {
+            var input = 0;
+            var amps = new List<Intcode>();
+            _inputBuffers = new Dictionary<int, IBuffer>();
+
+            var i = 0;
+            foreach (var phase in phases)
             {
-
-                foreach (var amp in amps)
-                {
-
-                    if (amp.IsRunning)
-                    {
-                        amp.Sleep = false;
-                        amp.Process();
-                    }
-
-                }
-
-                if (!amps.Any(x => x.IsRunning == true))
-                {
-                    break;
-                }
+                _inputBuffers.Add(i, new SharedBuffer());
+                _inputBuffers[i].Add(phase);
+                i++;
             }
 
-            return amps[4].Output();
+            i = 0;
+            foreach (var phase in phases)
+            {
+                var inputBuffer = _inputBuffers.ContainsKey(i - 1) ? _inputBuffers[i - 1] : _inputBuffers[4];
+
+                var memory = new VirtualMemory(State);
+                var amp = new Intcode(memory, _inputBuffers[i], inputBuffer);
+                amp.Id = phase;
+                amps.Add(amp);
+                i++;
+            }
+
+            _inputBuffers[0].Add(input);
+            while (true)
+            {
+                foreach (var amp in amps)
+                {
+                    if (!amp.IsRunning()) continue;
+                    amp.Wake();
+                    amp.Process();
+                }
+
+                if (!amps.Any(x => x.IsRunning())) break;
+            }
+
+            return _inputBuffers[0].GetValue();
         }
     }
 }

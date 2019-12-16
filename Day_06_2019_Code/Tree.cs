@@ -6,9 +6,9 @@ namespace Day_06_2019_Code
 {
     public class Tree
     {
-        private TreeNode _rootNode;
         private List<TreeNode> _nodes;
-        private char orbitSeparator = ')';
+        private readonly char _orbitSeparator = ')';
+        private TreeNode _rootNode;
 
         public Tree(string input)
         {
@@ -25,7 +25,10 @@ namespace Day_06_2019_Code
 
         public void Init(string[] orbits)
         {
-            if (orbits.Length == 0) return;
+            if (orbits.Length == 0)
+            {
+                return;
+            }
 
             _rootNode = new TreeNode("");
             _nodes = new List<TreeNode>();
@@ -36,38 +39,27 @@ namespace Day_06_2019_Code
                 TreeNode parent;
                 TreeNode child;
 
-                if (!NodeExists(planetOrbit.parentPlanet))
+                parent = !NodeExists(planetOrbit.ParentPlanet) ? CreateNode(planetOrbit.ParentPlanet) : _nodes.First(x => x.Val == planetOrbit.ParentPlanet);
+
+                child = !NodeExists(planetOrbit.ChildPlanet) ? CreateNode(planetOrbit.ChildPlanet) : _nodes.First(x => x.Val == planetOrbit.ChildPlanet);
+
+                if (parent.Children.All(x => x.Val != child.Val))
                 {
-                    parent = CreateNode(planetOrbit.parentPlanet);
-                }
-                else
-                {
-                    parent = _nodes.First(x => x.val == planetOrbit.parentPlanet);
+                    parent.Children.Add(child);
                 }
 
-                if (!NodeExists(planetOrbit.childPlanet))
-                {
-                    child = CreateNode(planetOrbit.childPlanet);
-                }
-                else
-                {
-                    child = _nodes.First(x => x.val == planetOrbit.childPlanet);
-                }
-
-                if (!parent.children.Where(x => x.val == child.val).Any()) parent.children.Add(child);
-                child.parent = parent;
+                child.Parent = parent;
             }
 
             _rootNode = FindRootNode(_nodes[0]);
         }
 
 
-
         public TreeNode FindRootNode(TreeNode node)
         {
-            while (node.parent != null)
+            while (node.Parent != null)
             {
-                node = node.parent;
+                node = node.Parent;
             }
 
             return node;
@@ -75,8 +67,8 @@ namespace Day_06_2019_Code
 
         public bool NodeExists(string nodeId)
         {
-            var res = _nodes.Where(x => x.val == nodeId).Any();
-            return _nodes.Where(x => x.val == nodeId).Any();
+            var res = _nodes.Any(x => x.Val == nodeId);
+            return _nodes.Any(x => x.Val == nodeId);
         }
 
 
@@ -90,16 +82,16 @@ namespace Day_06_2019_Code
 
         private Orbit GetOrbit(string orbit)
         {
-            var parent = orbit.Split(new[] { orbitSeparator }, StringSplitOptions.RemoveEmptyEntries).First();
-            var child = orbit.Split(new[] { orbitSeparator }, StringSplitOptions.RemoveEmptyEntries).Last();
+            var parent = orbit.Split(new[] {_orbitSeparator}, StringSplitOptions.RemoveEmptyEntries).First();
+            var child = orbit.Split(new[] {_orbitSeparator}, StringSplitOptions.RemoveEmptyEntries).Last();
 
             return new Orbit(parent, child);
         }
 
         private void AddOrbit(string orbit)
         {
-            var parent = orbit.Split(new[] { orbitSeparator }, StringSplitOptions.RemoveEmptyEntries).First();
-            var child = orbit.Split(new[] { orbitSeparator }, StringSplitOptions.RemoveEmptyEntries).Last();
+            var parent = orbit.Split(new[] {_orbitSeparator}, StringSplitOptions.RemoveEmptyEntries).First();
+            var child = orbit.Split(new[] {_orbitSeparator}, StringSplitOptions.RemoveEmptyEntries).Last();
 
             AddNode(parent, child);
         }
@@ -110,16 +102,20 @@ namespace Day_06_2019_Code
             {
                 return null;
             }
-            else if (root.val == nodeId)
+
+            if (root.Val == nodeId)
             {
                 return root;
             }
 
             TreeNode found = null;
-            foreach (var c in root.children)
+            foreach (var c in root.Children)
             {
                 found = FindNode(c, nodeId);
-                if (found != null) break;
+                if (found != null)
+                {
+                    break;
+                }
             }
 
             return found;
@@ -132,16 +128,20 @@ namespace Day_06_2019_Code
             {
                 return false;
             }
-            else if (root.val == nodeId)
+
+            if (root.Val == nodeId)
             {
                 return true;
             }
 
-            bool found = false;
-            foreach (var c in root.children)
+            var found = false;
+            foreach (var c in root.Children)
             {
                 found = NodeExists(c, nodeId);
-                if (found) break;
+                if (found)
+                {
+                    break;
+                }
             }
 
             return found;
@@ -167,24 +167,23 @@ namespace Day_06_2019_Code
         public int CountAllPaths()
         {
             return CountAllPaths(_rootNode);
-
         }
 
         public int CountAllPaths(TreeNode root)
         {
-
             var count = 0;
             if (root == null)
             {
                 return 0;
             }
-            else if (root.children.Count() == 0)
+
+            if (!root.Children.Any())
             {
                 return DistanceToRoot(root);
             }
 
             count += DistanceToRoot(root);
-            foreach (var c in root.children)
+            foreach (var c in root.Children)
             {
                 count += CountAllPaths(c);
             }
@@ -200,29 +199,29 @@ namespace Day_06_2019_Code
         {
             var myPathTooRoot = NodesToRoot(FindNode(_rootNode, "YOU"));
             var intersection = FindIntersection(myPathTooRoot, FindNode(_rootNode, "SAN"));
-            var YOUhops = HopsToNode(intersection, FindNode(_rootNode, "YOU"));
-            var SANHops = HopsToNode(intersection, FindNode(_rootNode, "SAN"));
+            var yoUhops = HopsToNode(intersection, FindNode(_rootNode, "YOU"));
+            var sanHops = HopsToNode(intersection, FindNode(_rootNode, "SAN"));
 
-            return YOUhops + SANHops - 2;
+            return yoUhops + sanHops - 2;
         }
 
         public TreeNode FindIntersection(List<TreeNode> nodes, TreeNode node)
         {
-            while (node.parent != null && !nodes.Where(x => x.val == node.val).Any())
+            while (node.Parent != null && nodes.All(x => x.Val != node.Val))
             {
-                node = node.parent;
+                node = node.Parent;
             }
 
-            return nodes.Where(x => x.val == node.val).Any() ? node : null;
+            return nodes.Any(x => x.Val == node.Val) ? node : null;
         }
 
         public int HopsToNode(TreeNode root, TreeNode node)
         {
             var count = 0;
-            while (node.val != root.val && node.parent != null)
+            while (node.Val != root.Val && node.Parent != null)
             {
                 count++;
-                node = node.parent;
+                node = node.Parent;
             }
 
             return count;
@@ -236,15 +235,13 @@ namespace Day_06_2019_Code
         public List<TreeNode> NodesToRoot(TreeNode node)
         {
             var nodes = new List<TreeNode>();
-            while (node.parent != null)
+            while (node.Parent != null)
             {
                 nodes.Add(node);
-                node = node.parent;
+                node = node.Parent;
             }
 
             return nodes;
         }
-
-
     }
 }

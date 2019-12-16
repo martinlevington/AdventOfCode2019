@@ -5,7 +5,7 @@ namespace Day_03_2019_Code
 {
     public class ManhattanDistance
     {
-        private int shortestDistance;
+        private int _shortestDistance;
 
         // Return the sum of distance of one axis. 
         public int CalculateDistance((int, int) pointA, (int, int) pointB)
@@ -18,20 +18,18 @@ namespace Day_03_2019_Code
 
         public int CalculateShortestFromOrigin(IEnumerable<(int, int)> points)
         {
-            shortestDistance = Int32.MaxValue;
+            _shortestDistance = int.MaxValue;
 
             foreach (var point in points)
             {
                 var dist = CalculateDistance((0, 0), (point.Item1, point.Item2));
-                if (shortestDistance > dist)
+                if (_shortestDistance > dist)
                 {
-                    shortestDistance = dist;
+                    _shortestDistance = dist;
                 }
             }
 
-            return shortestDistance;
-
+            return _shortestDistance;
         }
-
     }
 }

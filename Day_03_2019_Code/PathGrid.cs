@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Utils;
 
 namespace Day_03_2019_Code
 {
     public class PathGrid
     {
-
-        private Dictionary<(int,int), string> _gridPoints;
-        private string _instructions;
-        private int currentSteps;
-        private int stepsToDestination;
         private (int, int) _destination;
+
+        private readonly Dictionary<(int, int), string> _gridPoints;
+        private readonly string _instructions;
+        private int _currentSteps;
+        private int _stepsToDestination;
 
         public PathGrid()
         {
@@ -57,13 +55,12 @@ namespace Day_03_2019_Code
                     default:
                         throw new Exception("Error: Unknown Direction");
                 }
-       
             }
         }
 
         public int TraceStepsToPoint((int, int) destination)
         {
-            currentSteps = 0;
+            _currentSteps = 0;
             CurrentX = 0;
             CurrentY = 0;
             _destination = destination;
@@ -92,28 +89,30 @@ namespace Day_03_2019_Code
                 }
             }
 
-            return stepsToDestination;
+            return _stepsToDestination;
         }
 
         private List<(string, int)> ConvertToInstructions(IEnumerable<string> rawInstructions)
         {
-            var result = new List<(string,int)>();
+            var result = new List<(string, int)>();
             foreach (var rawInstruction in rawInstructions)
             {
-                result.Add( (rawInstruction.Substring(0,1), Convert.ToInt32(rawInstruction.Substring(1,rawInstruction.Length-1))));
+                result.Add((rawInstruction.Substring(0, 1),
+                    Convert.ToInt32(rawInstruction.Substring(1, rawInstruction.Length - 1))));
             }
+
             return result;
         }
-
-
-
         public void MoveUp(int value, bool trace = false)
         {
             for (var i = 0; i < value; i++)
             {
                 CurrentY += 1;
                 CalcSteps();
-                if (!trace) AddPoint();
+                if (!trace)
+                {
+                    AddPoint();
+                }
             }
         }
 
@@ -123,17 +122,22 @@ namespace Day_03_2019_Code
             {
                 CurrentY -= 1;
                 CalcSteps();
-                if (!trace) AddPoint();
+                if (!trace)
+                {
+                    AddPoint();
+                }
             }
         }
-
         public void MoveLeft(int value, bool trace = false)
         {
             for (var i = 0; i < value; i++)
             {
                 CurrentX -= 1;
                 CalcSteps();
-                if (!trace) AddPoint();
+                if (!trace)
+                {
+                    AddPoint();
+                }
             }
         }
 
@@ -143,34 +147,32 @@ namespace Day_03_2019_Code
             {
                 CurrentX += 1;
                 CalcSteps();
-                if (!trace) AddPoint();
-
-
+                if (!trace)
+                {
+                    AddPoint();
+                }
             }
         }
 
         private void CalcSteps()
         {
-            currentSteps++;
+            _currentSteps++;
             if (CurrentX == _destination.Item1 && CurrentY == _destination.Item2)
             {
-                stepsToDestination = currentSteps;
+                _stepsToDestination = _currentSteps;
             }
         }
 
         private void AddPoint()
         {
-           
             if (_gridPoints.ContainsKey((CurrentX, CurrentY)))
             {
                 _gridPoints[(CurrentX, CurrentY)] = "+";
                 return;
             }
+
             _gridPoints.Add((CurrentX, CurrentY), ".");
-
-        
         }
-
 
         public bool PointExists((int x, int y) point)
         {

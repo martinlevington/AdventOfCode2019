@@ -1,21 +1,22 @@
-﻿using Day_06_2019_Code;
-using System;
+﻿using System;
+using System.IO;
+using Day_06_2019_Code;
 
 namespace Day_06_2019_Console
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
 
-            string[] orbits = System.IO.File.ReadAllLines(@"input.txt");
+            var orbits = File.ReadAllLines(@"input.txt");
 
             var tree = new Tree(orbits);
 
             var result = tree.CountAllPaths();
 
-            Console.WriteLine("The Root Node Is:" + tree.GetRootNode().val);
+            Console.WriteLine("The Root Node Is:" + tree.GetRootNode().Val);
 
             Console.WriteLine("Part One Result:" + result);
 

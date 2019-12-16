@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace SharedCode
 {
-    public class InputBuffer : IInputBuffer
+    public class InputBuffer : IBuffer
     {
         private Queue<long> _inputMemory = new Queue<long>();
 

@@ -4,9 +4,9 @@ using System.Text;
 
 namespace SharedCode
 {
-    public enum Colour
+    public enum Turn
     {
-        Black = 0,
-        White = 1
+        Left = 0,
+        Right = 1
     }
 }

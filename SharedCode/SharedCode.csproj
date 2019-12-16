@@ -19,4 +19,9 @@
     <ProjectReference Include="..\Utils\Utils.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Day01\" />
+    <Folder Include="Day02\" />
+  </ItemGroup>
+
 </Project>

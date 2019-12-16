@@ -1,13 +1,10 @@
-using System;
 using Day_01_2019_Code;
 using Xunit;
 
 namespace Day_01_2019_Tests
 {
-    public class FuelCaculatorTests
+    public class FuelCalculatorTests
     {
-       
-
         // A module of mass 14 requires 2 fuel. This fuel requires no further fuel (2 divided by 3 and rounded down is 0, which would call for a negative fuel),
         // so the total fuel required is still just 2.
 
@@ -30,8 +27,6 @@ namespace Day_01_2019_Tests
 
             //Assert
             Assert.Equal(expectedResult, result);
-
         }
-
     }
 }

@@ -1,15 +1,12 @@
-﻿using System;
-namespace Day_01_2019_Code
+﻿namespace Day_01_2019_Code
 {
     public class FuelCalculator : IFuelCalculator
     {
-       
-
         public int RequiredFuel(int weight)
         {
-            int answer = 0;
+            var answer = 0;
 
-            answer = (int)(weight / 3 - 2);
+            answer = weight / 3 - 2;
 
             if (answer > 0)
             {
@@ -18,6 +15,5 @@ namespace Day_01_2019_Code
 
             return 0;
         }
-
     }
 }

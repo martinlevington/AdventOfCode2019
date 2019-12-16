@@ -1,4 +1,3 @@
-using System;
 using Day_04_2019_Code;
 using Xunit;
 
@@ -25,7 +24,6 @@ namespace Day_04_2019_Tests
 
             //Assert
             Assert.Equal(expectedAnswer, numberOfPasswords);
-
         }
     }
 }

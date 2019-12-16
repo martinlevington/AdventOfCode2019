@@ -50,9 +50,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Day_05_2019_Code\Day_05_2019_Code.csproj">
-      <Project>{4c354be9-6e7a-4896-bdde-54b7c0b24b92}</Project>
-      <Name>Day_05_2019_Code</Name>
+    <ProjectReference Include="..\SharedCode\SharedCode.csproj">
+      <Project>{af17a0b8-39b6-4e71-b325-097579955f60}</Project>
+      <Name>SharedCode</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utils\Utils.csproj">
       <Project>{dad021a3-8b04-4708-ac72-26b96f2a7260}</Project>
