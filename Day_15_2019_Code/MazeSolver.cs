@@ -83,7 +83,7 @@ namespace Day_15_2019_Code
                 {
                     _path.Add(currentMove.RobotPosition, currentDistance);
                 }
-
+                _area.AddElement(currentMove.RobotPosition, '+');
                 DrawCurrentMaze(currentMove.RobotPosition, startingPoint);
 
                 if (result == 2)
@@ -107,18 +107,17 @@ namespace Day_15_2019_Code
 
         private void DrawCurrentMaze((int, int) currentPosition, (int, int) startingPoint)
         {
-            foreach (var pathPart in _path.OrderBy(x => x.Value))
-            {
-                if (pathPart.Key != startingPoint)
-                {
-                    _area.AddElement(pathPart.Key, '.');
-                }
-            }
+            //foreach (var pathPart in _path.OrderBy(x => x.Value))
+            //{
+            //    if (pathPart.Key != startingPoint)
+            //    {
+            //        _area.AddElement(pathPart.Key, '.');
+            //    }
+            //}
 
             if (_path.Count > 0)
             {
                 _area.AddElement(_path.First().Key, 'O');
-           //     _area.AddElement(_path.Last().Key, 'R');
             }
 
             if (_shortestPath.Count > 0)
@@ -135,19 +134,11 @@ namespace Day_15_2019_Code
                 _area.AddElement(_shortestPath.Last().Key, 'X');
             }
 
-            var drawing = _visualiser.Draw(currentPosition, '#', '*');
-            var decodeImgLines = drawing.Split(_visualiser.GetLineEnd().First());
-
-
-            Thread.Sleep(50);
+            Thread.Sleep(100);
             Console.Clear();
-            Console.WriteLine("-------------------------------");
-            foreach (var line in decodeImgLines)
-            {
-                Console.WriteLine(line);
-            }
-
-            Console.WriteLine("===============END=================");
+            _visualiser.Draw(currentPosition, '#', '*');
+          
+         
         }
 
         public void NextMovement()

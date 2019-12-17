@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace SharedCode
@@ -7,82 +6,94 @@ namespace SharedCode
     public class AreaTextVisualiser
     {
         private readonly IAreaSize _area;
-        private readonly string _lineEnd = "|";
+        private readonly string _lineEnd = Environment.NewLine;
+
+        private readonly char _pathChar = '+';
+        private readonly ConsoleColor _pathColour = ConsoleColor.DarkGreen;
 
         public AreaTextVisualiser(IAreaSize area)
         {
             _area = area;
         }
 
-        public char PathChar = '+';
-        public ConsoleColor PathColour = ConsoleColor.DarkGreen;
-
-        public string Draw((int,int) pointer, char defaultChar = ' ', char border = ' ')
+        public void Draw((int, int) pointer, char defaultChar = ' ', char border = ' ')
         {
             var minX = _area.GetMinX();
             var maxX = _area.GetMaxX();
             var minY = _area.GetMinY();
             var maxY = _area.GetMaxY();
 
-       
-
             var displayImage = new StringBuilder();
             // top Border
-            for (var x = minX; x <= maxX+2; x++)
+            for (var x = minX; x <= maxX + 2; x++)
             {
-                displayImage.Append(border);
+                Console.Write(border);
             }
-            displayImage.Append(_lineEnd);
+
+            Console.Write(_lineEnd);
 
             for (var y = maxY; y >= minY; y--)
             {
-               
-                    displayImage.Append(border);
-                
+                Console.Write(border);
+
                 for (var x = minX; x <= maxX; x++)
                 {
-
                     if (_area.ElementExists((x, y)))
                     {
-                        Console.ForegroundColor = _area.GetElement((x, y)) == PathChar ? PathColour : ConsoleColor.White;
+                        Console.ForegroundColor =
+                            _area.GetElement((x, y)) == _pathChar ? _pathColour : ConsoleColor.White;
 
                         if (pointer == (x, y))
                         {
-                            Console.ForegroundColor = ConsoleColor.DarkGray;
-                            displayImage.Append('R');
+                            Console.ForegroundColor = ConsoleColor.DarkYellow;
+                            Console.Write('R');
+                            Console.ForegroundColor = ConsoleColor.White;
                         }
                         else
                         {
+                            if (_area.GetElement((x, y)) == '.')
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkGray;
+                            }
+
+                            if (_area.GetElement((x, y)) == 'O')
+                            {
+                                Console.ForegroundColor = ConsoleColor.Green;
+                            }
+
+                            if (_area.GetElement((x, y)) == 'X')
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkBlue;
+                            }
+
+                            if (_area.GetElement((x, y)) == '+')
+                            {
+                                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                            }
+
+                            Console.Write(_area.GetElement((x, y)));
                             Console.ForegroundColor = ConsoleColor.White;
-                            displayImage.Append(_area.GetElement((x, y)));
                         }
                     }
                     else
                     {
-                        displayImage.Append(defaultChar);
+                        Console.Write(defaultChar);
                     }
-
                 }
 
-              
-                    displayImage.Append(border);
-                
-
-                displayImage.Append(y);
-                displayImage.Append(_lineEnd);
-
-              
+                Console.Write(border);
+                Console.Write(y);
+                Console.Write(_lineEnd);
             }
 
             // bottom border
-            for (var x = minX; x <= maxX+2; x++)
+            for (var x = minX; x <= maxX + 2; x++)
             {
-                displayImage.Append(border);
+                Console.Write(border);
             }
-            displayImage.Append(_lineEnd);
 
-            displayImage.Append(_lineEnd);
-            return displayImage.ToString();
+            Console.Write(_lineEnd);
+            Console.Write(_lineEnd);
         }
 
         public string GetLineEnd()
