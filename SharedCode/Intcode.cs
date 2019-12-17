@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Utils;
 
 namespace SharedCode
@@ -6,7 +7,7 @@ namespace SharedCode
     public class Intcode : IIntcode
     {
         private readonly IBuffer _inputBuffer;
-        private readonly IMemory _memory;
+        private IMemory _memory;
         private readonly IBuffer _outputBuffer;
         private bool _finished;
         private long _instructionPointer;
@@ -166,6 +167,11 @@ namespace SharedCode
         public string CurrentState()
         {
             return Strings.ConvertStringArrayToString(_memory.ToArray());
+        }
+
+        public void SetState(string state)
+        {
+            _memory = new VirtualMemory(state);
         }
 
         public string Output()

@@ -68,5 +68,10 @@ namespace Day_11_2019_Code
         {
             throw new NotImplementedException();
         }
+
+        public void RemoveElement((int, int) position)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

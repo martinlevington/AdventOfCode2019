@@ -13,5 +13,6 @@ namespace SharedCode
         void AddElement((int,int) position, char element);
         bool  ElementExists((int, int) position);
         char GetElement((int, int) position);
+        void RemoveElement((int, int) position);
     }
 }

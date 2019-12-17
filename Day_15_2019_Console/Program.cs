@@ -27,20 +27,12 @@ namespace Day_15_2019_Console
 
             var areaTextVisualiser = new AreaTextVisualiser(maze);
             var solver = new MazeSolver(robot, maze,areaTextVisualiser );
-            solver.Solve();
+            var shortestPath = solver.Solve((0,0));
 
           
-            var drawing = areaTextVisualiser.Draw();
+            Console.WriteLine("Shortest Path: "+ shortestPath);
 
-            var decodeImgLines = drawing.Split(areaTextVisualiser.GetLineEnd());
-
-
-            foreach(var line in decodeImgLines)
-            {
-                Console.WriteLine(line);
-            }
-
-          
+           
 
         }
     }

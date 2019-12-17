@@ -9,5 +9,6 @@
         void Process();
         string CurrentState();
         string Output();
+        void SetState(string state);
     }
 }

@@ -12,7 +12,7 @@ namespace SharedCode
             _area = area;
         }
 
-        public string Draw()
+        public string Draw((int,int) pointer)
         {
             var minX = _area.GetMinX();
             var maxX = _area.GetMaxX();
@@ -26,7 +26,16 @@ namespace SharedCode
                 {
                     if (_area.ElementExists((x, y)))
                     {
-                        displayImage.Append(_area.GetElement((x, y)));
+                        if (pointer == (x, y))
+                        {
+                            displayImage.Append('R');
+                        }
+                        else
+                        {
+
+
+                            displayImage.Append(_area.GetElement((x, y)));
+                        }
                     }
                     else
                     {

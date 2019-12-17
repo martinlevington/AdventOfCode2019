@@ -67,6 +67,17 @@ namespace SharedCode
             _area.Add(position, element);
         }
 
+        public void RemoveElement((int, int) position)
+        {
+            if (!_area.ContainsKey(position))
+            {
+                return;
+            }
+
+            _area.Remove(position);
+
+        }
+
         public bool ElementExists((int, int) position)
         {
             return _area.ContainsKey(position);
