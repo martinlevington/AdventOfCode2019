@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using SharedCode;
 using SharedCode.Robots;
 using Utils;
@@ -10,7 +11,6 @@ namespace Day_15_2019_Code
     public class MazeSolver
     {
         private readonly IAreaSize _area;
-        private readonly Dictionary<(int, int), int> _path = new Dictionary<(int, int), int>();
         private readonly Robot _robot;
 
         private readonly Stack<MovementState> _validMoves = new Stack<MovementState>();
@@ -18,6 +18,9 @@ namespace Day_15_2019_Code
         private readonly AreaTextVisualiser _visualiser;
 
         private Movement _currentMovement = Movement.North;
+
+        private readonly Dictionary<(int, int), int> _path = new Dictionary<(int, int), int>();
+        private readonly Dictionary<(int, int), int> _shortestPath = new Dictionary<(int, int), int>();
         private bool foundDestination;
 
         public MazeSolver(Robot robot, IAreaSize area, AreaTextVisualiser visualiser)
@@ -38,12 +41,8 @@ namespace Day_15_2019_Code
             _validMoves.Push(new MovementState(Movement.North, _robot.GetState(), currentDistance, startingPoint));
             _area.AddElement(startingPoint, 'O');
 
-            MovementState previous = null;
-            while (true)
+            while (_validMoves.Count > 0)
             {
-                DrawCurrentMaze(_robot.GetPosition());
-
-
                 if (!_visited.Contains(_robot.GetPosition()))
                 {
                     _visited.Add(_robot.GetPosition());
@@ -58,31 +57,17 @@ namespace Day_15_2019_Code
                         _validMoves.Push(new MovementState(move, _robot.GetState(), currentDistance + 1,
                             _robot.GetPosition()));
                     }
-                    else if (!moveInfo.CanMove && !_visited.Contains(moveInfo.Position))
-                    {
-                        _area.AddElement(moveInfo.Position, '#');
-                    }
+                    
                 }
 
                 // pick a direction 
                 var currentMove = _validMoves.Pop();
-            
 
                 foreach (var i in _path.Where(d => currentMove.Distance < d.Value).ToList())
                 {
                     _path.Remove(i.Key);
-                  //  _area.RemoveElement(i.Key);
                     _area.AddElement(i.Key, '.');
                 }
-
-                if (currentMove.Distance >= currentDistance)
-                {
-                    if (_robot.GetPosition() != startingPoint)
-                    {
-                        _area.AddElement(_robot.GetPosition(), '+');
-                    }
-                }
-
 
                 currentDistance = currentMove.Distance;
                 _robot.SetState(currentMove.State);
@@ -99,31 +84,64 @@ namespace Day_15_2019_Code
                     _path.Add(currentMove.RobotPosition, currentDistance);
                 }
 
-               
-                previous = currentMove;
+                DrawCurrentMaze(currentMove.RobotPosition, startingPoint);
 
                 if (result == 2)
                 {
-                    _area.AddElement(_robot.GetPosition(), 'X');
-
-                    foreach (var p in _path.OrderBy(x => x.Value).ToList())
+                    foundDestination = true;
+                    foreach (var pathPart in _path.OrderBy(x => x.Value))
                     {
-                        Console.WriteLine(p.Value + " : " + p.Key);
+                        _shortestPath.Add(pathPart.Key, pathPart.Value);
                     }
-
-                    return _path.Count();
-                    break;
                 }
             }
+
+            DrawCurrentMaze(_robot.GetPosition(), startingPoint);
+            if (foundDestination)
+            {
+                return _shortestPath.Count;
+            }
+
+            return -1;
         }
 
-        private void DrawCurrentMaze((int, int) currentPosition)
+        private void DrawCurrentMaze((int, int) currentPosition, (int, int) startingPoint)
         {
-            var drawing = _visualiser.Draw(currentPosition);
+            foreach (var pathPart in _path.OrderBy(x => x.Value))
+            {
+                if (pathPart.Key != startingPoint)
+                {
+                    _area.AddElement(pathPart.Key, '.');
+                }
+            }
+
+            if (_path.Count > 0)
+            {
+                _area.AddElement(_path.First().Key, 'O');
+           //     _area.AddElement(_path.Last().Key, 'R');
+            }
+
+            if (_shortestPath.Count > 0)
+            {
+                foreach (var pathPart in _shortestPath.OrderBy(x => x.Value))
+                {
+                    if (pathPart.Key != startingPoint)
+                    {
+                        _area.AddElement(pathPart.Key, '+');
+                    }
+                }
+
+                _area.AddElement(_shortestPath.First().Key, 'O');
+                _area.AddElement(_shortestPath.Last().Key, 'X');
+            }
+
+            var drawing = _visualiser.Draw(currentPosition, '#', '*');
             var decodeImgLines = drawing.Split(_visualiser.GetLineEnd().First());
-            //     Thread.Sleep(50);
+
+
+            Thread.Sleep(50);
             Console.Clear();
-            Console.WriteLine("------------------------");
+            Console.WriteLine("-------------------------------");
             foreach (var line in decodeImgLines)
             {
                 Console.WriteLine(line);
